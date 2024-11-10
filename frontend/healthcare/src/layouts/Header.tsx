@@ -1,4 +1,6 @@
 import React from "react";
+import Sidebar from "../components/Sidebar";
+import Barra from "../components/Barra";
 
 type HeaderProps = {
     children: React.ReactNode
@@ -7,8 +9,13 @@ type HeaderProps = {
 export default function Header({children} : HeaderProps) {
   return (
     <>
-        <header>Hola</header>
-        <main>{children}</main>
+        <div className="flex">
+          <Sidebar />
+          <main className="w-full h-screen p-5">
+            <Barra />
+            {children}
+          </main>
+        </div>
     </>
   )
 }
