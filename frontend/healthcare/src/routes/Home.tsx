@@ -1,6 +1,12 @@
+import Barra from "../components/Barra"
 
 export default function Home() {
   return (
-    <div>Home</div>
+    <>
+      <Barra/>
+      <div className="container">
+        
+      </div>
+    </>
   )
 }
