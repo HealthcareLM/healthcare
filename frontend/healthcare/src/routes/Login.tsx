@@ -20,13 +20,13 @@ export default function Login() {
        <form action="" className="space-y-4 px-44">
           <div className="campo mb-4 gap-1">
             <label htmlFor="email" className="block text-sm font-semibold">Email address</label>
-            <input type="email" id="email" placeholder="Email address" className="w-full p-2 border rounded" />
+            <input type="email" id="email" placeholder="Email address" className="w-full p-2 border rounded" required />
           </div>
 
           <div className="relative">
             <label htmlFor="password" className="block text-sm font-semibold">Your password</label>
             <div className="flex items-center relative">
-              <input type={seePassword ? "text" : "password"} id="password" placeholder="*******" className="w-full p-2 border rounded" />
+              <input type={seePassword ? "text" : "password"} id="password" placeholder="*******" className="w-full p-2 border rounded" required />
               <img src={showPassword} alt="ver contraseña imagen" className="absolute cursor-pointer right-4 h-6"
                   onClick={clicSee}/>
             </div>
