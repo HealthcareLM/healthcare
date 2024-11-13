@@ -20,8 +20,9 @@ const config = {
         gray_1: '#747474',
         gray_2: '#7A7D84',
         gray_3: '#E5E5E5',
-        gray_4: '#EEEEEE'
-      }
+        gray_4: '#EEEEEE',
+        btn: '#3B9AB8',
+        bgLogin: '#869CA3'
     },
   },
   plugins: [],
