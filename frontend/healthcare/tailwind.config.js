@@ -23,6 +23,7 @@ const config = {
         gray_4: '#EEEEEE',
         btn: '#3B9AB8',
         bgLogin: '#869CA3'
+      }
     },
   },
   plugins: [],
