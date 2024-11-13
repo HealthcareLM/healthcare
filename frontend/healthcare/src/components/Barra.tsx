@@ -4,7 +4,7 @@ import { mdiMagnify, mdiMapMarkerOutline, mdiBellOutline, mdiBellBadgeOutline } 
 export default function Barra() {
   return (
     <div className="w-full mb-6 flex justify-between items-center gap-14">
-        <h1 className="font-bold text-4xl block mr-8"><span className="font-medium text-xl text-gray_1 block">Hi, Stevan dux</span>Welcome Back</h1>
+        <h1 className="font-bold text-4xl block mr-8    "><span className="font-medium text-xl text-gray_1 block">Hi, Stevan dux</span>Welcome Back</h1>
 
         <form className='flex items-center bg-gray_4 rounded-md h-fit flex-grow '>
             <div className="w-full relative after:content-[''] after:block after:absolute after:top-2 after:right-0 after:h-3/4 after:bg-gray_3 after:w-px">
