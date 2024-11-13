@@ -19,18 +19,18 @@ export default function Register() {
        <form action="" className="space-y-4 px-44">
           <div className="mb-4 gap-1">
             <label htmlFor="email" className="block text-sm font-semibold">Email address</label>
-            <input type="email" id="email" placeholder="steve.madden@gmail.com" className="w-full p-2 border rounded" />
+            <input type="email" id="email" placeholder="steve.madden@gmail.com" className="w-full p-2 border rounded" required />
           </div>
 
           <div className="mb-4 gap-1">
             <label htmlFor="number" className="block text-sm font-semibold">Phone Number</label>
-            <input type="number" id="number" placeholder="1234567890" className="w-full p-2 border rounded" />
+            <input type="number" id="number" placeholder="1234567890" className="w-full p-2 border rounded [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required />
           </div>
 
           <div className="relative">
             <label htmlFor="password" className="block text-sm font-semibold">Your password</label>
             <div className="flex items-center relative">
-              <input type={seePassword ? "text" : "password"} id="password" placeholder="*******" className="w-full p-2 border rounded" />
+              <input type={seePassword ? "text" : "password"} id="password" placeholder="*******" className="w-full p-2 border rounded" required />
               <img src={showPassword} alt="ver contraseña imagen" className="absolute cursor-pointer right-4 h-6"
                 onClick={clicSee}/>
             </div>
@@ -38,7 +38,7 @@ export default function Register() {
 
           <div className="mb-4 gap-1">
             <label htmlFor="date" className="block text-sm font-semibold">Birth Date</label>
-            <input type="date" id="date" placeholder="23/03/1995" className="w-full p-2 border rounded" />
+            <input type="date" id="date" placeholder="23/03/1995" className="w-full p-2 border rounded" required/>
           </div>
 
             <input type="submit" value={'Sign Up'} className="w-full bg-btn text-white font-bold rounded-lg p-3 hover:scale-110 transition-all duration-300 cursor-pointer" />
