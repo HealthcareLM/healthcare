@@ -8,7 +8,7 @@ export default {
     extend: {
       colors: {
         btn: '#3B9AB8',
-        bgLogin: '#869CA3',
+        bgLogin: '#869CA3'
       }
     },
   },
