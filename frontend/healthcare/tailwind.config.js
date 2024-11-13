@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+
+const withMT = require("@material-tailwind/react/utils/withMT");
+
+const config = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -11,7 +14,9 @@ export default {
       },
       colors: {
         primary: '#3B9AB8',
+        azul_claro: '#EBFFFA',
         slateBorder: '#E3E3E3',
+        light_gray: '#F6F6F6',
         gray_1: '#747474',
         gray_2: '#7A7D84',
         gray_3: '#E5E5E5',
@@ -21,4 +26,6 @@ export default {
   },
   plugins: [],
 }
+
+export default withMT(config)
 

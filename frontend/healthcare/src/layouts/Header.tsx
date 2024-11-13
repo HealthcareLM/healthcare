@@ -11,7 +11,7 @@ export default function Header({children} : HeaderProps) {
     <>
         <div className="flex">
           <Sidebar />
-          <main className="w-full h-screen p-5">
+          <main className="w-full h-screen p-5 overflow-scroll overflow-x-hidden">
             <Barra />
             {children}
           </main>
