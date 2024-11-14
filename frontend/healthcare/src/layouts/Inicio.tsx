@@ -1,8 +1,8 @@
 
 import {ReactNode} from 'react';
-import Ellipse201 from '../../public/Ellipse201.png';
-import Doctors from '../../public/doctors.png';
-import Logo from '../../public/logo.png';
+import Ellipse201 from '/Ellipse201.png';
+import Doctors from '/doctors.png';
+import Logo from '/logo.png';
 
 export default function Inicio({children}:{children:ReactNode}) { 
   return (

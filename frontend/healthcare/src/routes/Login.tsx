@@ -1,6 +1,6 @@
 import Inicio from "../layouts/Inicio";
 import { useState } from "react";
-import showPassword from '../../public/eyePassword.png';
+import showPassword from '/eyePassword.png';
 
 export default function Login() {
   const [seePassword, setSeePassword] = useState(false)
