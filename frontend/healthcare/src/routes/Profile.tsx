@@ -12,7 +12,7 @@ export default function Profile() {
             <h1 className="w-full text-2xl font-bold">My profile</h1>
             <div className="w-full rounded-lg border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                <div className="m-5 sm:w-1/4 md:w-1/12">
-                  <img src="../../public/users/profile.png" alt="" className="w-full block" />
+                  <img src="/users/profile.png" alt="" className="w-full block" />
                </div>
                <div className="sm:w-2/4 md:w-3/6 lg:w-4/6">
                   <p className="text-lg font-semibold">Stevan Dux</p>
