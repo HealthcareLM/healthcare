@@ -17,10 +17,16 @@ export default function Sidebar() {
                 <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/dashboard"><Icon path={mdiViewDashboardOutline} size={'16px'} className='mr-2 hover:fill-white'/>Dashboard</Link>
               </li>
               <li>
-                <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/calendar"><Icon path={mdiCalendarBlankOutline} size={'16px'} className='mr-2 hover:fill-white'/>Calendar</Link>
+                <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/calendar"><Icon path={mdiCalendarBlankOutline} size={'16px'} className='mr-2 hover:fill-white'/>Patient Records</Link>
               </li>
               <li>
-                <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/profile"><Icon path={mdiAccountCircleOutline } size={'16px'} className='mr-2 hover:fill-white'/>Profile</Link>
+                <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/calendar"><Icon path={mdiAccountCircleOutline } size={'16px'} className='mr-2 hover:fill-white'/>My Aviability</Link>
+              </li>
+              <li>
+                <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/calendar"><Icon path={mdiHelpCircleOutline } size={'16px'} className='mr-2 hover:fill-white'/>My Consults</Link>
+              </li>
+              <li>
+                <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/calendar"><Icon path={mdiHelpCircleOutline } size={'16px'} className='mr-2 hover:fill-white'/>Online Consults</Link>
               </li>
               <li>
                 <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/calendar"><Icon path={mdiHelpCircleOutline } size={'16px'} className='mr-2 hover:fill-white'/>Help</Link>

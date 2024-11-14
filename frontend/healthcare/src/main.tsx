@@ -8,6 +8,7 @@ import Home from './routes/Home.tsx'
 import Dashboard from './routes/Dashboard.tsx'
 import Profile from './routes/Profile.tsx'
 import ProfileHistory from './routes/ProfileHistory.tsx'
+import PatientBookingStep1 from './routes/PatientBookingStep1.tsx'
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: '/profilehistory',
     element: <ProfileHistory/>
+  },
+  {
+    path: '/patientBookingstep1',
+    element: <PatientBookingStep1/>
   }
 ])
 
