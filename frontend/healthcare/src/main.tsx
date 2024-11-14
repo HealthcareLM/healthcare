@@ -6,7 +6,8 @@ import Login from './routes/Login.tsx'
 import Register from './routes/Register.tsx'
 import Home from './routes/Home.tsx'
 import Dashboard from './routes/Dashboard.tsx'
-
+import Profile from './routes/Profile.tsx'
+import ProfileHistory from './routes/ProfileHistory.tsx'
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <Dashboard/>
+  },
+  {
+    path: '/profile',
+    element: <Profile/>
+  },
+  {
+    path: '/profilehistory',
+    element: <ProfileHistory/>
   }
 ])
 
