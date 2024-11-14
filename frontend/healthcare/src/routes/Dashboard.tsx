@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Header from "../layouts/Header"
 import Carrusel from "../components/Carrusel"
 import Calendar from "../components/Calendar";
