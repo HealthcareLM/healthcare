@@ -2,7 +2,7 @@
 
 export default function Calendar() {
   return (
-    <div className="bg-light_gray rounded-lg px-4 py-3">
+    <div className="w-full h-full bg-light_gray rounded-lg px-4 py-3">
         <div className="px-4 flex items-center justify-between">
             <span className="text-lg font-mediu text-black">November 2020</span>
             <div className="flex items-center">

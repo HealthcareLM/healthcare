@@ -10,6 +10,7 @@ import Profile from './routes/Profile.tsx'
 import ProfileHistory from './routes/ProfileHistory.tsx'
 import Available from './routes/Available.tsx'
 
+import PatientBookingStep1 from './routes/PatientBookingStep1.tsx'
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   }, {
     path: '/available',
     element: <Available/>
+  },
+  {
+    path: '/patientBookingstep1',
+    element: <PatientBookingStep1/>
   }
 ])
 
