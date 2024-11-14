@@ -8,6 +8,8 @@ import Home from './routes/Home.tsx'
 import Dashboard from './routes/Dashboard.tsx'
 import Profile from './routes/Profile.tsx'
 import ProfileHistory from './routes/ProfileHistory.tsx'
+import Available from './routes/Available.tsx'
+
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -32,6 +34,9 @@ const router = createBrowserRouter([
   {
     path: '/profilehistory',
     element: <ProfileHistory/>
+  }, {
+    path: '/available',
+    element: <Available/>
   }
 ])
 
