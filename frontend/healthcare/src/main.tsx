@@ -8,6 +8,8 @@ import Home from './routes/Home.tsx'
 import Dashboard from './routes/Dashboard.tsx'
 import Profile from './routes/Profile.tsx'
 import ProfileHistory from './routes/ProfileHistory.tsx'
+import Available from './routes/Available.tsx'
+
 import PatientBookingStep1 from './routes/PatientBookingStep1.tsx'
 const router = createBrowserRouter([
   {
@@ -33,6 +35,9 @@ const router = createBrowserRouter([
   {
     path: '/profilehistory',
     element: <ProfileHistory/>
+  }, {
+    path: '/available',
+    element: <Available/>
   },
   {
     path: '/patientBookingstep1',
