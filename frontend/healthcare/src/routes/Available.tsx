@@ -9,9 +9,9 @@ export default function Available() {
   
   const localizer = momentLocalizer(moment);
   const components = {
-    event: props => {
+    event: (props: {title: string}) => {
       // console.log(props);
-      return <div className="">{props.title}</div>
+      return <div className="bg-primary">{props.title}</div>
     }
   }
 
