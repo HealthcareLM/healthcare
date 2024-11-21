@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import Barra from "../components/Barra";
 
+
 type HeaderProps = {
     children: React.ReactNode
 }

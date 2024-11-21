@@ -21,8 +21,10 @@ const config = {
         gray_2: '#7A7D84',
         gray_3: '#E5E5E5',
         gray_4: '#EEEEEE',
+        gray_5: '#7E7E7E',
         btn: '#3B9AB8',
-        bgLogin: '#869CA3'
+        bgLogin: '#869CA3',
+        bgPatient:'#f6f6f6',
       }
     },
   },
