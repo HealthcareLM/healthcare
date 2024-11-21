@@ -10,4 +10,7 @@ export type LinksSidebar = {
     pacientes: {
         links: Link[]
     }
+    doctores : {
+      links: Link[]
+    }
 }

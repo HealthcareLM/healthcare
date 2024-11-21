@@ -17,16 +17,23 @@ export default function Sidebar({menu}: {menu:boolean}) {
               <h2 className='text-primary text-3xl'>Healthi</h2>
           </div>
 
-          <nav className="w-full mt-14">
-              <ul className='flex flex-col gap-3'>
-                {SidebarLinks.pacientes.links.map((link) => (
-                  <li key={link.title}>
-                    <Link className={`flex items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white ${location === link.ruta ? 'bg-primary text-white' : ''}`} to={link.ruta}><Icon path={link.icono} size={'16px'} className='mr-2 hover:fill-white'/>{link.title}</Link>
-                  </li>
-                ))}
-              </ul>
-          </nav>
-        </div>
+        <nav className="w-full mt-14">
+            <ul className='flex flex-col gap-3'>
+              {SidebarLinks.pacientes.links.map((link) => (
+                <li key={link.title}>
+                  <Link className={`flex items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white ${location === link.ruta ? 'bg-primary text-white' : ''}`} to={link.ruta}><Icon path={link.icono} size={'16px'} className='mr-2 hover:fill-white'/>{link.title}</Link>
+                </li>
+              ))}
+            </ul>
+
+            {/* <ul className='flex flex-col gap-5'>
+              {SidebarLinks.doctores.links.map((link) => (
+                <li key={link.title}>
+                  <Link className={`flex items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white ${location === link.ruta ? 'bg-primary text-white' : ''}`} to={link.ruta}><Icon path={link.icono} size={'16px'} className='mr-2 hover:fill-white'/>{link.title}</Link>
+                </li>
+              ))}
+            </ul> */}
+        </nav>
 
         <div className="mt-auto mb-5 relative">
           <img className='absolute bottom-24 left-4 w-10/12' src="./image_7.png" alt="img"/>
