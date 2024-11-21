@@ -47,6 +47,7 @@ export default function Sidebar({menu}: {menu:boolean}) {
             </div>
           </div>
         </div>
+        </div>
     </aside>
   )
 }
