@@ -8,7 +8,12 @@ import Home from './routes/Home.tsx'
 import Dashboard from './routes/Dashboard.tsx'
 import Profile from './routes/Profile.tsx'
 import ProfileHistory from './routes/ProfileHistory.tsx'
+import Available from './routes/Available.tsx'
+
 import PatientBookingStep1 from './routes/PatientBookingStep1.tsx'
+import PatientRecords from './routes/PatientRecords.tsx'
+import MenuConsults from './routes/MenuConsults.tsx'
+import OnlineConsult from './routes/OnlineConsult.tsx'
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -33,11 +38,26 @@ const router = createBrowserRouter([
   {
     path: '/profilehistory',
     element: <ProfileHistory/>
+  }, {
+    path: '/available',
+    element: <Available/>
   },
   {
     path: '/patientBookingstep1',
     element: <PatientBookingStep1/>
-  }
+  },
+  {
+    path: '/patientrecords',
+    element: <PatientRecords/>
+  },
+  {
+    path: '/MenuConsults',
+    element: <MenuConsults/>
+  },
+  {
+    path: '/OnlineConsult',
+    element: <OnlineConsult/>
+  },
 ])
 
 createRoot(document.getElementById('root')!).render(

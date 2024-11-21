@@ -1,8 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Icon from '@mdi/react';
-import { mdiViewDashboardOutline, mdiCalendarBlankOutline, mdiAccountCircleOutline, mdiHelpCircleOutline, mdiLogout } from '@mdi/js';
+
+import { SidebarLinks } from '../data/SidebarData';
 
 export default function Sidebar() {
+
+  const location = useLocation().pathname;
+  
+
   return (
     <aside className="flex flex-col border-slateBorder border w-60 items-center px-5">
 
@@ -13,21 +18,11 @@ export default function Sidebar() {
 
         <nav className="w-full mt-14">
             <ul className='flex flex-col gap-3'>
-              <li>
-                <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/dashboard"><Icon path={mdiViewDashboardOutline} size={'16px'} className='mr-2 hover:fill-white'/>Dashboard</Link>
-              </li>
-              <li>
-                <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/calendar"><Icon path={mdiCalendarBlankOutline} size={'16px'} className='mr-2 hover:fill-white'/>Calendar</Link>
-              </li>
-              <li>
-                <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/profile"><Icon path={mdiAccountCircleOutline } size={'16px'} className='mr-2 hover:fill-white'/>Profile</Link>
-              </li>
-              <li>
-                <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/calendar"><Icon path={mdiHelpCircleOutline } size={'16px'} className='mr-2 hover:fill-white'/>Help</Link>
-              </li>
-              <li>
-                <Link className='flex  items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white' to="/calendar"><Icon path={mdiLogout} size={'16px'} className='mr-2 hover:fill-white'/>Logout</Link>
-              </li>
+              {SidebarLinks.pacientes.links.map((link) => (
+                <li key={link.title}>
+                  <Link className={`flex items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white ${location === link.ruta ? 'bg-primary text-white' : ''}`} to={link.ruta}><Icon path={link.icono} size={'16px'} className='mr-2 hover:fill-white'/>{link.title}</Link>
+                </li>
+              ))}
             </ul>
         </nav>
 
