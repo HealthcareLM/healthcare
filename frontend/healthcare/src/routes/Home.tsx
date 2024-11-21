@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <BarraNewUser />
-      <div className="container mx-auto mt-8">
+      <div className="container mx-auto mt-8 px-4 md:px-0">
         <div className="relative">
           <Carrusel/>
 
@@ -41,7 +41,7 @@ export default function Home() {
         <div className="mt-[73px]">
           <h3 className="text-2xl font-semibold mb-5">Recommended Doctors</h3>
 
-          <div className="flex justify-between gap-4">
+          <div className="flex justify-between gap-4 flex-col md:flex-row">
             <CardDoctor/>
             <CardDoctor/>
             <CardDoctor/>
@@ -52,7 +52,7 @@ export default function Home() {
             <h3 className="text-2xl font-semibold mb-3">Nearby Doctors</h3>
           </div>
           <div className="flex border border-slateBorder rounded-xl items-center justify-center">
-            <div className="flex flex-col justify-center items-center gap-3 py-8 w-full">
+            <div className="flex flex-col justify-center items-center gap-3 py-8 w-full px-4">
               <Icon path={mdiMapMarker} size={'42px'} />
               <p className="text-sm text-['#4E4E4E']">Please enable your location, so we can find nearby doctors. <span className="text-primary underline cursor-pointer text-sm">Enable Now</span></p>
             </div>

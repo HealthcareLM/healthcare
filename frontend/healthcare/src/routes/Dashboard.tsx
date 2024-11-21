@@ -16,8 +16,8 @@ export default function Dashboard() {
   return (
     <Header>
         <div className="">
-          <div className="flex gap-5">
-            <div className="w-3/5">
+          <div className="flex gap-5 flex-col xl:flex-row">
+            <div className="w-full lx:w-3/5">
               <div className="h-72">
                 <Carrusel/>
               </div>
@@ -39,7 +39,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                 ) : (
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 flex-col md:flex-row">
                     <CardNearbyDoctor/>
                     <CardNearbyDoctor/>
                     <CardNearbyDoctor/>
@@ -47,7 +47,7 @@ export default function Dashboard() {
                 )}
               </div>
             </div>
-            <div className="w-2/5 border border-slateBorder rounded-xl p-5">
+            <div className="w-full xl:w-2/5 border border-slateBorder rounded-xl p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-semibold">Upcoming Appointments</h3>
                 <div className="flex items-center">
@@ -69,7 +69,7 @@ export default function Dashboard() {
           <div className="mt-5 border border-slateBorder rounded-xl p-5">
             <h3 className="text-2xl font-semibold mb-5">Recommended Doctors</h3>
 
-            <div className="flex justify-between gap-4">
+            <div className="flex justify-between gap-4 flex-col md:flex-row">
               <CardDoctor/>
               <CardDoctor/>
               <CardDoctor/>
