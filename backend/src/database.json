@@ -1,0 +1,34 @@
+{
+    "usuarios": {
+        "usuarioId1" : {
+            "email": "",
+            "telefono": "",
+            "password": "",
+            "birthdate": "",
+            "usuario": "",
+            "rol": "paciente"
+        },
+        "usuarioId2" : {
+            "email": "",
+            "telefono": "",
+            "password": "",
+            "usuario": "",
+            "birthdate": "",
+            "rol": "doctor",
+            "especialidad": "",
+            "costo": "20psitos",
+        }
+    },
+
+    "citas": {
+        "citaID": {
+            "doctorId": "usuarioId2",
+            "patientId": "usuarioId1",
+            "fecha": "2024-11-20",
+            "hora": "11:30am",
+            "receta": "dasasddsas.pdf",
+            "sintomas": "",
+            "confirmado": "1"
+        },
+    }
+}

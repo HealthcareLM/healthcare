@@ -21,7 +21,7 @@ export default function Carrusel() {
                         />
                     </div>
                 </div>
-                <div className="absolute top-0 right-[-10px] flex h-full items-end">
+                <div className="absolute top-0 right-[-10px] h-full items-end">
                     <img
                         src={doctores}
                         alt="image 1"

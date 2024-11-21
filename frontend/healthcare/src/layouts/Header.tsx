@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 import Barra from "../components/Barra";
+import {useState} from "react"
 
 
 type HeaderProps = {
@@ -8,12 +9,15 @@ type HeaderProps = {
 }
 
 export default function Header({children} : HeaderProps) {
+
+  const [menu, setMenu] = useState(false);
+
   return (
     <>
         <div className="flex">
-          <Sidebar />
+          <Sidebar menu={menu} />
           <main className="w-full h-screen p-5 overflow-scroll overflow-x-hidden">
-            <Barra />
+            <Barra setMenu={setMenu}/>
             {children}
           </main>
         </div>
