@@ -4,9 +4,6 @@ import CardPatientRecords from "../components/CardPatientRecords";
 export default function PatientRecords(){
 
    return(
-
-      
-
       <Header>
          <div>
             <PatientRecordsbar/>

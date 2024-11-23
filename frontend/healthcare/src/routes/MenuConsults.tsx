@@ -7,8 +7,8 @@ export default function MenuConsults(){
    return(
       <Header>
          <div>
-         <Consultsbar/>
-         <div className=" pt-3 space-y-4">
+            <Consultsbar/>
+            <div className=" pt-3 space-y-4">
                <CardMenuConsults/>
                <CardMenuConsults/>
                <CardMenuConsults/>
@@ -18,7 +18,6 @@ export default function MenuConsults(){
                <CardMenuConsults/>
             </div>
          </div>
-         
       </Header>
 
    )
