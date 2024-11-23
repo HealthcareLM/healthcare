@@ -15,10 +15,10 @@ export const SidebarLinks : LinksSidebar = {
   doctores: {
     links: [
       {icono: mdiViewDashboardOutline, title: 'Dashboard', ruta: '/dashboard'},
-      {icono: mdiNoteMultipleOutline, title: 'Patient Records', ruta: '/'},
+      {icono: mdiNoteMultipleOutline, title: 'Patient Records', ruta: '/patientrecords'},
       {icono: mdiCalendarBlankOutline, title: 'My Availability', ruta: '/available'},
-      {icono: mdiAccountCircleOutline, title: 'My Consults', ruta: '/'},
-      {icono: mdiVideoOutline , title: 'Onlinea Consult', ruta: '/'},
+      {icono: mdiAccountCircleOutline, title: 'My Consults', ruta: '/MenuConsults'},
+      {icono: mdiVideoOutline , title: 'Online Consult', ruta: '/'},
       {icono: mdiHelpCircleOutline, title: 'Help', ruta: '/'},
       {icono: mdiLogout, title: 'Logout', ruta: '/logout'}
     ]

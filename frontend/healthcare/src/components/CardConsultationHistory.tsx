@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function CardConsultationHistory(){
    return(
-      <div className=" p-4 sm:w-1/2 lg:w-full border rounded-lg sm:flex-row">
+      <div className=" p-4 border  rounded-lg sm:flex-row">
          <div className="flex flex-col pb-3 sm:flex-row items-center space-x-3">
             <img className="w-20 h-15" src="/users/history.png" alt="" />
             <h3 className="text-sm">Jane Cooper</h3>
