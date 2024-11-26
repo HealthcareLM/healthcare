@@ -1,6 +1,8 @@
 import Inicio from "../layouts/Inicio";
 import { useState } from "react";
 import showPassword from '/eyePassword.png';
+import { useAuth } from "../hooks/useAuth";
+import { Navigate } from "react-router-dom";
 
 export default function Register() {
   const [seePassword, setSeePassword] = useState(false)
@@ -9,6 +11,13 @@ export default function Register() {
     // console.log('Clic en ver contraseña');
     setSeePassword(!seePassword);
   })
+
+  const { isAuthenticated } = useAuth() 
+  
+  if(isAuthenticated) {
+    return <Navigate to="/profile" />
+  }
+
   return (
     <Inicio>
       <div className="text-center mb-9">

@@ -5,7 +5,7 @@ import { mdiRenameOutline} from "@mdi/js"
 import Profilebar from "../components/Profilebar"
 export default function Profile() {
   return (
-    <Header>
+    <>
       <div className="flex flex-col md:flex-row pb-7 border rounded-lg w-full">
          <Profilebar/>
          <div className=" p-3 w-full space-y-4">
@@ -87,6 +87,6 @@ export default function Profile() {
       </div>
 
 
-    </Header>
+    </>
   )
 }

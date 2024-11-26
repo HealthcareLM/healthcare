@@ -1,10 +1,12 @@
 import express from "express"
-import routes from "./routes/index"
+import usuariosRouter from "./routes/UsuariosRoutes"
 import db from "./config/database"
+
 
 const app = express()
 app.use(express.json())
-app.use('/api', routes)
+
+app.use('/usuarios', usuariosRouter)
 
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
