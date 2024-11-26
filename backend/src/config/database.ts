@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import dotenv from 'dotenv'
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import admin from 'firebase-admin'
+import serviceAccount from './serviceAccountKey.json'
 
 dotenv.config()
 
@@ -16,4 +16,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount as admin.ServiceAccount)
+});
+const db = admin.firestore()
+
+export default db

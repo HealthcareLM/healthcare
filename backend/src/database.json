@@ -5,14 +5,14 @@
             "telefono": "",
             "password": "",
             "birthdate": "",
-            "usuario": "",
+            "nombre": "",
             "rol": "paciente"
         },
         "usuarioId2" : {
             "email": "",
             "telefono": "",
             "password": "",
-            "usuario": "",
+            "nombre": "",
             "birthdate": "",
             "rol": "doctor",
             "especialidad": "",
