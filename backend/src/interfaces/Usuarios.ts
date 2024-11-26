@@ -1,12 +1,12 @@
 
 
-export interface IUsuarios {
+export interface IUsuario {
     email: string,
     telefono: string,
     password: string,
-    nombre: string,
     birthdate: Date,
     rol: ['doctor', 'paciente'],
+    nombre?: string,
     especialidad?: string,
     costo?: string
 }

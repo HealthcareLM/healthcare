@@ -16,6 +16,10 @@ import MenuConsults from './routes/MenuConsults.tsx'
 import OnlineConsult from './routes/OnlineConsult.tsx'
 import PatientStep2 from './routes/PatientStep2.tsx'
 import ProfileDocuments from './routes/ProfileDocuments.tsx'
+import AuthProvider from './contexts/AuthContext.tsx'
+import ProtectedRoute from './routes/ProtectedRoute.tsx'
+import Header from './layouts/Header.tsx'
+
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -30,12 +34,24 @@ const router = createBrowserRouter([
     element: <Home/>
   },
   {
-    path: '/dashboard',
-    element: <Dashboard/>
-  },
-  {
-    path: '/profile',
-    element: <Profile/>
+    path: '/',
+    element: <ProtectedRoute/>,
+    children: [
+      {
+        path: '/',
+        element: <Header/>,
+        children: [
+          {
+            path: "/dashboard",
+            element: <Dashboard/>
+          },
+          {
+            path: '/profile',
+            element: <Profile/>
+          },
+        ]
+      }
+    ]
   },
   {
     path: '/profilehistory',
@@ -72,6 +88,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <AuthProvider>
+      <RouterProvider router={router}/>
+    </AuthProvider>
   </StrictMode>,
 )
