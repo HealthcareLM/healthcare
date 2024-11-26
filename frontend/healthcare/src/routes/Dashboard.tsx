@@ -14,7 +14,7 @@ export default function Dashboard() {
   const [ubicacion, setUbicacion] = useState(true)
 
   return (
-    <Header>
+    <>
         <div className="">
           <div className="flex gap-5 flex-col xl:flex-row">
             <div className="w-full lx:w-3/5">
@@ -76,7 +76,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-    </Header>
+    </>
   )
 }
 

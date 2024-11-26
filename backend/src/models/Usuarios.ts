@@ -1,8 +1,8 @@
-import { IUsuarios } from "../interfaces/Usuarios";
+import { IUsuario } from "../interfaces/Usuarios";
 
 
 export const Usuarios = {
-    async create(usuario: IUsuarios) {
+    async create(usuario: IUsuario) {
 
     }
 }
