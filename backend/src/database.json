@@ -16,7 +16,7 @@
             "birthdate": "",
             "rol": "doctor",
             "especialidad": "",
-            "costo": "20psitos",
+            "costo": "20psitos"
         }
     },
 
@@ -29,6 +29,6 @@
             "receta": "dasasddsas.pdf",
             "sintomas": "",
             "confirmado": "1"
-        },
+        }
     }
 }
