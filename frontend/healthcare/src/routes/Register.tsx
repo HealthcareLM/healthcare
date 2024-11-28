@@ -1,10 +1,27 @@
 import Inicio from "../layouts/Inicio";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import showPassword from '/eyePassword.png';
 import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
 
+type SignInType = {
+  email: string,
+  telefono: string,
+  password: string,
+  birthdate: string
+}
+
 export default function Register() {
+  // GUARDADO DE DATOS
+  const [sigin, setSigin] = useState<SignInType>({
+    email: '',
+    telefono: '',
+    password: '',
+    birthdate: ''
+  })
+  
+
+  // PASSWORD
   const [seePassword, setSeePassword] = useState(false)
 
   const clicSee = (() =>{
@@ -13,9 +30,20 @@ export default function Register() {
   })
 
   const { isAuthenticated } = useAuth() 
-  
   if(isAuthenticated) {
     return <Navigate to="/profile" />
+  }
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setSigin({
+      ...sigin,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    
   }
 
   return (
@@ -25,21 +53,21 @@ export default function Register() {
           <h3 className="text-[20px] text-gray-500">Already know Musaki? <a href="/login" className="inline-block text-blue-500 hover:underline hover:scale-110 transition-all duration-75">Log in</a> </h3>
       </div>
 
-       <form action="" className="space-y-4 px-44">
+       <form action="" className="space-y-4 px-44" onSubmit={handleSubmit}>
           <div className="mb-4 gap-1">
             <label htmlFor="email" className="block text-sm font-semibold">Email address</label>
-            <input type="email" id="email" placeholder="steve.madden@gmail.com" className="w-full p-2 border rounded" required />
+            <input type="email" id="email" name="email" placeholder="steve.madden@gmail.com" className="w-full p-2 border rounded" required value={sigin.email} onChange={handleChange}/>
           </div>
 
           <div className="mb-4 gap-1">
             <label htmlFor="number" className="block text-sm font-semibold">Phone Number</label>
-            <input type="number" id="number" placeholder="1234567890" className="w-full p-2 border rounded [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required />
+            <input type="number" id="number" name="telefono" placeholder="1234567890" className="w-full p-2 border rounded [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required value={sigin.telefono} onChange={handleChange}/>
           </div>
 
           <div className="relative">
             <label htmlFor="password" className="block text-sm font-semibold">Your password</label>
             <div className="flex items-center relative">
-              <input type={seePassword ? "text" : "password"} id="password" placeholder="*******" className="w-full p-2 border rounded" required />
+              <input type={seePassword ? "text" : "password"} id="password" name="password" placeholder="*******" className="w-full p-2 border rounded" required value={sigin.password} onChange={handleChange}/>
               <img src={showPassword} alt="ver contraseña imagen" className="absolute cursor-pointer right-4 h-6"
                 onClick={clicSee}/>
             </div>
@@ -47,7 +75,7 @@ export default function Register() {
 
           <div className="mb-4 gap-1">
             <label htmlFor="date" className="block text-sm font-semibold">Birth Date</label>
-            <input type="date" id="date" placeholder="23/03/1995" className="w-full p-2 border rounded" required/>
+            <input type="date" id="date" name="birthdate" placeholder="23/03/1995" className="w-full p-2 border rounded" required value={sigin.birthdate} onChange={handleChange}/>
           </div>
 
             <input type="submit" value={'Sign Up'} className="w-full bg-btn text-white font-bold rounded-lg p-3 hover:scale-110 transition-all duration-300 cursor-pointer" />
