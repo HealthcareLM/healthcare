@@ -16,6 +16,7 @@ import MenuConsults from './routes/MenuConsults.tsx'
 import OnlineConsult from './routes/OnlineConsult.tsx'
 import PatientStep2 from './routes/PatientStep2.tsx'
 import ProfileDocuments from './routes/ProfileDocuments.tsx'
+import { EditarUsuario } from './routes/EditarUsuario.tsx'
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
   {
     path: '/OnlineConsult',
     element: <OnlineConsult/>
+  },
+  {
+    path: '/editarusuario',
+    element: <EditarUsuario/>
   },
 ])
 
