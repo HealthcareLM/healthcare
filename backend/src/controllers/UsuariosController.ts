@@ -26,35 +26,45 @@ export class UsuariosController {
     }
 
     public static async register(req: Request, res: Response) {
-        const usuario : IUsuario = req.body
+        // const usuario : IUsuario = req.body
+        const { email, password, telefono, birthdate } : Partial<IUsuario> = req.body
 
-        if(!usuario.email || !usuario.password || !usuario.telefono || !usuario.birthdate) {
+        if(!email || !password || !telefono || !birthdate) {
             res.status(400).json({ error: 'Petición insuficiente: Faltan datos' })
-        }
-
-        usuario.rol = "paciente"
-
-        try {
-
-            const existeEmail = await Usuarios.findEmail(usuario.email)
-
-            if(existeEmail) {
-                res.status(409).json({ error: 'Ya esta registrado un usuario con ese email'})
-            } else {
-                const idUsuario = await Usuarios.create(usuario)
-            
-                res.status(201).json({
-                    message: 'Usuario Creado con Éxito',
-                    user: {
-                        id: idUsuario,
-                        email: usuario.email
-                    }
-                })
+        } else {
+            const usuario : IUsuario = {
+                email: email as string,
+                password: password as string,
+                telefono: telefono as string,
+                birthdate: birthdate as string,
+                rol: 'paciente',
+                nombre: ''
             }
-
-        } catch (error) {
-            res.status(500).json({ error: 'Error del servidor' })
-        }
+    
+            try {
+    
+                const existeEmail = await Usuarios.findEmail(usuario.email)
+    
+                if(existeEmail) {
+                    res.status(409).json({ error: 'Ya esta registrado un usuario con ese email'})
+                } else {
+                    const idUsuario = await Usuarios.create(usuario)
+                
+                    if(idUsuario) {
+                        res.status(201).json({
+                            message: 'Usuario Creado con Éxito',
+                        })
+                    } else {
+                        res.status(400).json({
+                            message: 'No fue posible crear el usuario',
+                        })
+                    }
+                }
+    
+            } catch (error) {
+                res.status(500).json({ error: 'Error del servidor' })
+            }
+        }        
     }
 
     // public static async login(req: Request, res: Response) {
