@@ -16,5 +16,9 @@ router.put('/usuario/:id', UsuariosController.create)           // ACTUALIZAR UN
 
 router.post('/signin', UsuariosController.register)             // REGISTRAR USUARIO (PACIENTE)
 // router.post('/login', UsuariosController.login)
+router.get('/usuarios', UsuariosController.all)
+router.post('/usuario', UsuariosController.create)
+router.post('/signin', UsuariosController.register)
+router.post('/login', UsuariosController.login)
 
 export default router

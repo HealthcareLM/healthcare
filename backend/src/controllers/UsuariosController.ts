@@ -3,27 +3,26 @@ import { Usuarios } from "../models/Usuarios";
 import { IUsuario } from '../interfaces/Usuarios';
 
 export class UsuariosController {
-    public static all() {
-        try {
-            
-            
-        } catch (error) {
+  public static all() {
+      try {
+          
+          
+      } catch (error) {
+      
+          
+      }
+  }
+
+  public static create(req: Request, res: Response) {
+    const usuario : IUsuario = req.body
+
+    try {
         
-            
-        }
+    } catch (error) {
+        res.status(500).json({ error: 'Error del servidor' })
     }
+  }
 
-    public static create(req: Request, res: Response) {
-        const usuario : IUsuario = req.body
-
-        
-
-        try {
-            
-        } catch (error) {
-            res.status(500).json({ error: 'Error del servidor' })
-        }
-    }
 
     public static async register(req: Request, res: Response) {
         // const usuario : IUsuario = req.body
@@ -67,25 +66,43 @@ export class UsuariosController {
         }        
     }
 
-    // public static async login(req: Request, res: Response) {
-    //     const {email, password} : {email: string, password: string} = req.body
 
-    //     if(!email || !password) {
-    //         res.status(500).json({ error: 'Error del servidor' })
-    //     }
+  public static async login(req: Request, res: Response) {
+    const { email, password } : IUsuario = req.body
 
-    //     try {
-    //         const usuario = await Usuarios.findEmail(email)
+    if (!email || !password ) {
+      res.status(400).json({ error: 'No puedes dejar campos vacios' })
+    }
 
-    //         if(usuario) {
+    try {
+      const usuario = await Usuarios.findEmail(email)
+      console.log(usuario);
+      
 
-    //         } else {
-    //             res.status(500).json({ error: 'No existe una cuenta asociada con este email' })
-    //         }
+      if (!usuario) {
+         res.status(404).json({ error: "Usuario NO encontrado" })
+        //  res.status(404).json({ success: false, message: "Error" })
+      } 
+      else {
+        const passwordValidate = await Usuarios.verifyPassword(password, usuario.password)
+        
+        if (!passwordValidate) {
+           res.status(401).json({ error: "Contraseña incorrecta" })
+        } else {
+          res.status(200).json({
+           message: 'Inicio de sesión exitoso',
+           user: {
+             id: usuario.id,
+             email: usuario.email,
+             rol: usuario.rol,
+           },
+         });
+          
+        }
+      }
 
-    //     } catch (error) {
-    //         res.status(500).json({ error: 'Error del servidor' })
-    //     }
-
-    // }
+    } catch (error) {
+       res.status(500).json({ error: 'Error del servidor' })
+    }
+  }
 }
