@@ -20,6 +20,7 @@ import AuthProvider from './contexts/AuthContext.tsx'
 import ProtectedRoute from './routes/ProtectedRoute.tsx'
 import Header from './layouts/Header.tsx'
 
+import { EditarUsuario } from './routes/EditarUsuario.tsx'
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
   {
     path: '/OnlineConsult',
     element: <OnlineConsult/>
+  },
+  {
+    path: '/editarusuario',
+    element: <EditarUsuario/>
   },
 ])
 
