@@ -1,11 +1,15 @@
 import Sidebar from "../components/Sidebar";
 import Barra from "../components/Barra";
-import {useState} from "react"
+import {ReactNode, useState} from "react"
 
 import { Outlet } from "react-router-dom";
 
 
-export default function Header() {
+interface HeaderProps {
+  children?: ReactNode;
+}
+
+export default function Header({ children }: HeaderProps) {
 
   const [menu, setMenu] = useState(false);
 
@@ -15,7 +19,7 @@ export default function Header() {
           <Sidebar menu={menu} />
           <main className="w-full h-screen p-5 overflow-scroll overflow-x-hidden">
             <Barra setMenu={setMenu}/>
-            <Outlet/>
+            { children || <Outlet/> }
           </main>
         </div>
     </>
