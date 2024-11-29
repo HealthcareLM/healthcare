@@ -18,23 +18,24 @@ export const Usuarios = {
         }
     },
 
-    async findEmail(email: string) {
+    async findEmail(email: string): Promise <IUsuario | false> {
         const usuarios = await db.collection(collectionName).where('email', '==', email).get()
-
-        if(usuarios.empty){
-            return false
+        
+        if (usuarios.empty) {
+          return false
         }
 
         const usuario = usuarios.docs[0]
 
         return {
             id: usuario.id,
-            ...usuario.data
-        }
+            ...usuario.data(),
+        } as IUsuario
     },
 
+
     async verifyPassword(password: string, hash: string) {
-        const result = bcrypt.compare(password, hash)
-        return result
+      const result = bcrypt.compare(password, hash)
+      return result
     }
 }
