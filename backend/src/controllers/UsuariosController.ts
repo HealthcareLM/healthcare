@@ -13,15 +13,29 @@ export class UsuariosController {
       }
   }
 
-  public static create(req: Request, res: Response) {
-    const usuario : IUsuario = req.body
+  public static async create(req: Request, res: Response) {
+    const usuarioData: IUsuario | IUsuario[] = req.body
 
     try {
-        
+        if (Array.isArray(usuarioData)) {
+          const usuariosMany = await Promise.all(usuarioData.map((usuario) => Usuarios.validateUser(usuario))) 
+
+          await Usuarios.insertMany(usuariosMany)
+          res.status(201).json({ message: "Usuarios creados correctamente", usuariosMany })
+
+        } else {
+          const usuario = await Usuarios.validateUser(usuarioData)
+
+          await Usuarios.create(usuario)
+          res.status(201).json({ message: "Usuario creado correctamente" })
+        }
+
     } catch (error) {
         res.status(500).json({ error: 'Error del servidor' })
     }
   }
+
+ 
 
 
     public static async register(req: Request, res: Response) {
@@ -104,5 +118,47 @@ export class UsuariosController {
     } catch (error) {
        res.status(500).json({ error: 'Error del servidor' })
     }
+  }
+
+  public static async readId(req: Request, res: Response) {
+    const { id } = req.params
+
+    try {
+      const usuario = await Usuarios.getUserId(id)
+      res.status(201).json({ usuario })
+    } catch (error) {
+        res.status(500).json({ error: 'Error del servidor Controller Buscar ID' })
+    }
+  } 
+
+  public static async deleteUserId(req: Request, res: Response) {
+    const { id } = req.params
+
+    try {
+        await Usuarios.deleteUserId(id) 
+      res.status(201).json(`Usuario borrado con éxito id: ${id}`)
+
+    } catch (error) {
+      res.status(500).json({ error: 'Error del servidor Controller Borrar ID' })
+    }
+  }
+
+  public static async updateUser(req: Request, res: Response) {
+    const { id } = req.params
+    const user = req.body
+
+    try {
+      const userUpdate = await Usuarios.updateUserId(id, user)
+      res.status(201).json( { 
+        message: "Actualizado  con Éxito ",
+        user: {
+          user: userUpdate
+        }
+       })
+
+    } catch (error) {
+      res.status(500).json({ error: 'Error del servidor Controller actualizar ID' })
+    }
+
   }
 }
