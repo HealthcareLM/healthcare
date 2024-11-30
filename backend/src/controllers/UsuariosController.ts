@@ -118,9 +118,6 @@ export class UsuariosController {
     }
   }
 
- 
-
-
   public static async register(req: Request, res: Response) {
       // const usuario : IUsuario = req.body
       const { email, password, telefono, birthdate } : Partial<IUsuario> = req.body
