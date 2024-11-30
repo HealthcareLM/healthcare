@@ -10,12 +10,11 @@ router.get('/doctores', UsuariosController.allDoctors)            // OBTENER TOD
 router.get('/doctores/:limit', UsuariosController.someDoctors)     // OBTENER ALGUNOS USUARIOS QUE SEAN DOCTORES
 
 router.post('/usuario', UsuariosController.create)              // CREAR UN USUARIO
-router.get('/usuario/:id', UsuariosController.all)              // OBTENER UN USUARIO ESPECIFICO
-router.delete('/usuario/:id', UsuariosController.create)        // ELIMINAR UN USUARIO
-router.put('/usuario/:id', UsuariosController.create)           // ACTUALIZAR UN USUARIO
+router.get('/usuario/:id', UsuariosController.readId)              // OBTENER UN USUARIO ESPECIFICO
+router.put('/usuarioUpdate/:id', UsuariosController.updateUser)           // ACTUALIZAR UN USUARIO
+router.delete('/usuarioDelete/:id', UsuariosController.deleteUserId)        // ELIMINAR UN USUARIO
 
 router.post('/signin', UsuariosController.register)             // REGISTRAR USUARIO (PACIENTE)
-// router.post('/login', UsuariosController.login)
 router.post('/login', UsuariosController.login)
 
 export default router
