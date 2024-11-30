@@ -22,5 +22,12 @@ export const SidebarLinks : LinksSidebar = {
       {icono: mdiHelpCircleOutline, title: 'Help', ruta: '/'},
       {icono: mdiLogout, title: 'Logout', ruta: '/logout'}
     ]
+  },
+  profile: {
+    redirects: [
+      {title: 'General', ruta: '/profile'},
+      {title: 'Consultation History', ruta: '/profile/history'},
+      {title: 'Patient Documents', ruta: '/profile/documents'},
+    ]
   }
 }
