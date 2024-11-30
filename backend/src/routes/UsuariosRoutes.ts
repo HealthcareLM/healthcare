@@ -5,9 +5,9 @@ import { UsuariosController } from "../controllers/UsuariosController";
 const router = Router()
 
 router.get('/usuarios', UsuariosController.all)                     // OBTENER TODOS LOS USUARIOS
-router.get('/usuarios/:limit', UsuariosController.all)              // OBTENER ALGUNOS USUARIOS
-router.get('/usuarios/doctores', UsuariosController.all)            // OBTENER TODOS LOS USUARIOS QUE SEAN DOCTORES
-router.get('/usuarios/doctores/:limit', UsuariosController.all)     // OBTENER ALGUNOS USUARIOS QUE SEAN DOCTORES
+router.get('/usuarios/:limit', UsuariosController.some)              // OBTENER ALGUNOS USUARIOS
+router.get('/doctores', UsuariosController.allDoctors)            // OBTENER TODOS LOS USUARIOS QUE SEAN DOCTORES
+router.get('/doctores/:limit', UsuariosController.someDoctors)     // OBTENER ALGUNOS USUARIOS QUE SEAN DOCTORES
 
 router.post('/usuario', UsuariosController.create)              // CREAR UN USUARIO
 router.get('/usuario/:id', UsuariosController.all)              // OBTENER UN USUARIO ESPECIFICO

@@ -3,14 +3,97 @@ import { Usuarios } from "../models/Usuarios";
 import { IUsuario } from '../interfaces/Usuarios';
 
 export class UsuariosController {
-  public static all() {
+  public static async all(req: Request, res: Response) {
       try {
-          
+        const usuarios = await Usuarios.all()
+
+        res.status(200).json({
+          success: true,
+          message: 'La consulta se ejecuto con exito',
+          data: usuarios
+        })
           
       } catch (error) {
-      
-          
+        res.status(500).json({ error: 'Error del servidor' })
       }
+  }
+
+  public static async some(req: Request, res: Response) {
+    const limit = parseInt(req.params.limit)
+
+    if(isNaN(limit)) {
+      res.status(400).json({ error: 'Faltan datos: limit (number) --> Esta tratando de obtener ALGUNOS elementos' })
+      return
+    }
+
+    try {
+      const usuarios = await Usuarios.some(limit)
+
+      res.status(200).json({
+        success: true,
+        message: 'La consulta se ejecuto con exito',
+        data: usuarios
+      })
+
+      return
+
+    } catch (error) {
+      res.status(500).json({ error: 'Error del servidor' })
+      return
+    }
+  }
+
+  public static async allDoctors(req: Request, res: Response) {
+    try {
+      const usuarios = await Usuarios.where('rol', 'doctor')
+
+      if(!usuarios) {
+        res.status(400).json({
+          success: false,
+          message: 'No existen doctores en la DB'
+        })
+        return
+      }
+
+      res.status(200).json({
+        success: true,
+        message: 'La consulta se ejecuto con exito',
+        data: usuarios
+      })
+        
+    } catch (error) {
+      res.status(500).json({ error: 'Error del servidor' })
+    }
+  }
+
+  public static async someDoctors(req: Request, res: Response) {
+    const limit = parseInt(req.params.limit)
+
+    if(isNaN(limit)) {
+      res.status(400).json({ error: 'Faltan datos: limit (number) --> Esta tratando de obtener ALGUNOS elementos' })
+      return
+    }
+
+    try {
+      const usuarios = await Usuarios.somewhere('rol', 'doctor', limit)
+
+      if(!usuarios) {
+        res.status(400).json({
+          success: false,
+          message: 'No existen doctores en la DB'
+        })
+        return
+      }
+
+      res.status(200).json({
+        success: true,
+        message: 'La consulta se ejecuto con exito',
+        data: usuarios
+      })
+        
+    } catch (error) {
+      res.status(500).json({ error: 'Error del servidor' })
+    }
   }
 
   public static create(req: Request, res: Response) {
@@ -24,47 +107,47 @@ export class UsuariosController {
   }
 
 
-    public static async register(req: Request, res: Response) {
-        // const usuario : IUsuario = req.body
-        const { email, password, telefono, birthdate } : Partial<IUsuario> = req.body
+  public static async register(req: Request, res: Response) {
+      // const usuario : IUsuario = req.body
+      const { email, password, telefono, birthdate } : Partial<IUsuario> = req.body
 
-        if(!email || !password || !telefono || !birthdate) {
-            res.status(400).json({ error: 'Petición insuficiente: Faltan datos' })
-        } else {
-            const usuario : IUsuario = {
-                email: email as string,
-                password: password as string,
-                telefono: telefono as string,
-                birthdate: birthdate as string,
-                rol: 'paciente',
-                nombre: ''
-            }
-    
-            try {
-    
-                const existeEmail = await Usuarios.findEmail(usuario.email)
-    
-                if(existeEmail) {
-                    res.status(409).json({ error: 'Ya esta registrado un usuario con ese email'})
-                } else {
-                    const idUsuario = await Usuarios.create(usuario)
-                
-                    if(idUsuario) {
-                        res.status(201).json({
-                            message: 'Usuario Creado con Éxito',
-                        })
-                    } else {
-                        res.status(400).json({
-                            message: 'No fue posible crear el usuario',
-                        })
-                    }
-                }
-    
-            } catch (error) {
-                res.status(500).json({ error: 'Error del servidor' })
-            }
-        }        
-    }
+      if(!email || !password || !telefono || !birthdate) {
+          res.status(400).json({ error: 'Petición insuficiente: Faltan datos' })
+      } else {
+          const usuario : IUsuario = {
+              email: email as string,
+              password: password as string,
+              telefono: telefono as string,
+              birthdate: birthdate as string,
+              rol: 'paciente',
+              nombre: ''
+          }
+  
+          try {
+  
+              const existeEmail = await Usuarios.findEmail(usuario.email)
+  
+              if(existeEmail) {
+                  res.status(409).json({ error: 'Ya esta registrado un usuario con ese email'})
+              } else {
+                  const idUsuario = await Usuarios.create(usuario)
+              
+                  if(idUsuario) {
+                      res.status(201).json({
+                          message: 'Usuario Creado con Éxito',
+                      })
+                  } else {
+                      res.status(400).json({
+                          message: 'No fue posible crear el usuario',
+                      })
+                  }
+              }
+  
+          } catch (error) {
+              res.status(500).json({ error: 'Error del servidor' })
+          }
+      }        
+  }
 
 
   public static async login(req: Request, res: Response) {
