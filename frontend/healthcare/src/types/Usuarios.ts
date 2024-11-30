@@ -17,9 +17,10 @@ export type Doctor = {
     birthdate: string;
     rol: 'doctor';
     nombre: string;
+    imagen: string;
     especialidad: string; // Obligatorio si es doctor
     costo: string;        // Obligatorio si es doctor
-    imagen: string;
+    horario: string,
 }
 
 // Unión discriminada

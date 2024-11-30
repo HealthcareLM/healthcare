@@ -6,7 +6,7 @@ export interface IPaciente {
     birthdate: string;
     rol: 'paciente';
     nombre: string;
-    imagen: string
+    imagen: string;
 }
 
 export interface IDoctor {
@@ -17,10 +17,10 @@ export interface IDoctor {
     birthdate: string;
     rol: 'doctor';
     nombre: string;
+    imagen: string;
     especialidad: string; // Obligatorio si es doctor
     costo: string;        // Obligatorio si es doctor
     horario: string,
-    imagen: string
 }
 
 // Unión discriminada

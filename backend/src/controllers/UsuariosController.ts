@@ -120,7 +120,8 @@ export class UsuariosController {
               telefono: telefono as string,
               birthdate: birthdate as string,
               rol: 'paciente',
-              nombre: ''
+              nombre: '',
+              imagen: 'usuario.jpg'
           }
   
           try {
