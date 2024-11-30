@@ -4,20 +4,18 @@ import CardPatientRecords from "../components/CardPatientRecords";
 export default function PatientRecords(){
 
    return(
-      <Header>
-         <div>
-            <PatientRecordsbar/>
-            <div className=" pt-3 space-y-4">
-               <CardPatientRecords/>
-               <CardPatientRecords/>
-               <CardPatientRecords/>
-               <CardPatientRecords/>
-               <CardPatientRecords/>
-               <CardPatientRecords/>
-               <CardPatientRecords/>
-               <CardPatientRecords/>
-            </div>
+      <div>
+         <PatientRecordsbar/>
+         <div className=" pt-3 space-y-4">
+            <CardPatientRecords/>
+            <CardPatientRecords/>
+            <CardPatientRecords/>
+            <CardPatientRecords/>
+            <CardPatientRecords/>
+            <CardPatientRecords/>
+            <CardPatientRecords/>
+            <CardPatientRecords/>
          </div>
-      </Header>
+      </div>
    )
 }

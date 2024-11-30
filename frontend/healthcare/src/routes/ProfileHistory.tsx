@@ -1,5 +1,4 @@
 import Profilebar from "../components/Profilebar"
-import Header from "../layouts/Header"
 import { mdiPlus } from "@mdi/js";
 import Icon from "@mdi/react";
 import { Link } from "react-router-dom";
@@ -9,7 +8,7 @@ export default function ProfileHistory() {
 
    //const [date, setDate] = useState<Date | null>(new Date());
    return(
-      <Header>
+      <>
          <div className="w-full flex flex-col pb-7 md:flex-row border rounded-lg ">
             <Profilebar/>
             <div className="lg:w-full m-4 flex-col sm:flex-row border rounded-lg space-y-5">
@@ -23,9 +22,7 @@ export default function ProfileHistory() {
                   <div className="flex flex-col md:flex-row md:space-x-3 space-y-3 md:space-y-0">
                         <CardConsultationHistory/>
                         <CardConsultationHistory/>           
-                        <CardConsultationHistory/>           
-                                            
-                                                
+                        <CardConsultationHistory/> 
                   </div>
                </div>
                <div className=" m-4 space-y-3 ">
@@ -33,7 +30,6 @@ export default function ProfileHistory() {
                   <CardConsultationHistory/>           
                   <CardConsultationHistory/>           
                   <CardConsultationHistory/>            
-
                </div>
                <div className="m-4 pb-4">
                   <h1 className="text-xl font-bold pb-2">25/07/23</h1>
@@ -44,7 +40,6 @@ export default function ProfileHistory() {
                </div>
             </div>
          </div>
-      </Header>
-
+      </>
    )
 }

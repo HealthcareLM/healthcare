@@ -4,8 +4,30 @@ import CardDoctor from "../components/CardDoctor";
 import Icon from '@mdi/react';
 import { mdiMagnify, mdiMapMarkerOutline, mdiMapMarker } from '@mdi/js';
 import BarraNewUser from "../components/BarraNewUser";
+import { useEffect, useState } from "react";
+import { Doctor } from "../types/Usuarios";
+import { API_URL } from "../data/Constants";
 
 export default function Home() {
+
+  const [doctores, setDoctores] = useState<Doctor[]>([])
+
+  useEffect(() => {
+    // Definir la función asíncrona
+    const fetchDoctores = async () => {
+      try {
+        const response = await fetch(`${API_URL}/usuarios/doctores/3`);
+        const data = await response.json();
+        setDoctores(data.data); // Actualizar el estado con los datos
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    };
+
+    // Llamar a la función asíncrona
+    fetchDoctores();
+  }, []); // El arreglo vacío asegura que solo se ejecute al montar el componente
+
   return (
     <>
       <BarraNewUser />
@@ -42,9 +64,9 @@ export default function Home() {
           <h3 className="text-2xl font-semibold mb-5">Recommended Doctors</h3>
 
           <div className="flex justify-between gap-4 flex-col md:flex-row">
-            <CardDoctor/>
-            <CardDoctor/>
-            <CardDoctor/>
+            {doctores.map(doctor => (
+              <CardDoctor key={doctor.id} doctor={doctor}/>
+            ))}
           </div>
         </div>
         <div className="my-10">

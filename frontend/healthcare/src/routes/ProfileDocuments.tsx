@@ -1,5 +1,3 @@
-
-import Sidebar from "../components/Sidebar";
 import Icon from '@mdi/react';
 import { mdiBellOutline, mdiStarOutline, mdiDotsVertical  } from '@mdi/js';
 
@@ -9,9 +7,6 @@ export default function profiledocuments() {
   return(
     <>
     <div className="h-screen grid grid-cols-6 grid-rows-8 gap-4">
-        <div className="row-span-2">
-          <Sidebar/>
-        </div>
         <div className="col-span-5 row-span-8 col-start-2 bg-gray_4">
           <div className="h-screen grid grid-cols-5 grid-rows-8 gap-2">
             <div className="col-span-5 col-start-1 grid grid-rows-5">

@@ -34,7 +34,7 @@ export default function Available() {
   ]
 
   return (
-    <Header>
+    <>
       <div className="flex gap-6 ">
         <div className="h-[48rem] w-[75%] border rounded-md p-4">
           <Calendar
@@ -111,7 +111,7 @@ export default function Available() {
             </div>
         </div>
       </div>
-    </Header>
+    </>
   );
   
 }

@@ -1,4 +1,4 @@
-export interface IPaciente {
+export type Paciente = {
     id?: string | undefined
     email: string;
     telefono: string;
@@ -6,10 +6,10 @@ export interface IPaciente {
     birthdate: string;
     rol: 'paciente';
     nombre: string;
-    imagen: string
+    imagen: string;
 }
 
-export interface IDoctor {
+export type Doctor = {
     id?: string | undefined
     email: string;
     telefono: string;
@@ -19,21 +19,8 @@ export interface IDoctor {
     nombre: string;
     especialidad: string; // Obligatorio si es doctor
     costo: string;        // Obligatorio si es doctor
-    horario: string,
-    imagen: string
+    imagen: string;
 }
 
 // Unión discriminada
-export type IUsuario = IPaciente | IDoctor;
-
-
-// export interface IUsuario {
-//     email: string,
-//     telefono: string,
-//     password: string,
-//     birthdate: string,
-//     rol: 'doctor' | 'paciente',
-//     nombre?: string,
-//     especialidad?: string,
-//     costo?: string
-// }
+export type Usuario = Paciente | Doctor;

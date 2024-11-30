@@ -23,13 +23,13 @@ export default function Profile() {
                   </div>
                </div>
                <div className="flex items-center sm:justify-end p-4">
-                     <Link className='flex items-center w-24 px-6 py-2 border-black text-black font-semibold p-3 border  rounded-lg hover:border-primary hover:text-primary' to="/editarusuario">Edit  <Icon path={mdiRenameOutline} size={'20px'}  /></Link>
+                     <Link className='flex items-center w-24 px-6 py-2 border-black text-black font-semibold p-3 border  rounded-lg hover:border-primary hover:text-primary' to="/profile/configure">Edit  <Icon path={mdiRenameOutline} size={'20px'}  /></Link>
                </div>
             </div>
             <div className="w-full p-4 rounded-lg border flex flex-col gap-4">
                <div className="justify-between flex items-center">
                   <h1 className="text-xl font-bold">Personal Information</h1>
-                  <Link className='flex items-center w-24 px-6 py-2 border-black text-black font-semibold p-3 border  rounded-lg hover:border-primary hover:text-primary' to="/editarusuario">Edit  <Icon path={mdiRenameOutline} size={'20px'}  /></Link>
+                  <Link className='flex items-center w-24 px-6 py-2 border-black text-black font-semibold p-3 border  rounded-lg hover:border-primary hover:text-primary' to="/profile/configure">Edit  <Icon path={mdiRenameOutline} size={'20px'}  /></Link>
                </div>
                   <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between">
                      <div className="sm:w-1/3 md:w-3/6 lg:w-4/6">

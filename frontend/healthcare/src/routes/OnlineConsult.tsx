@@ -3,7 +3,7 @@ import Radio from "@material-tailwind/react/components/Radio"
 import Header from "../layouts/Header"
 export default function OnlineConsult(){
    return(
-      <Header>
+      <>
          <div className="border rounded-lg p-4">
             <h1 className="font-bold text-xl w-full">Consultation Info</h1>
             <form action="">
@@ -59,8 +59,7 @@ export default function OnlineConsult(){
                </div>
             </form>
          </div>
-
-      </Header>
+      </>
 
    )
 }

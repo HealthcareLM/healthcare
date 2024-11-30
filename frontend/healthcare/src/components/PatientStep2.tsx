@@ -1,25 +1,22 @@
-import BarraNewUser from "../components/BarraNewUser";
 import Icon from '@mdi/react';
 import { mdiArrowLeft } from '@mdi/js';
 import { mdiStethoscope } from '@mdi/js';
 import { mdiClockTimeThreeOutline } from '@mdi/js';
 import { mdiVideoOutline } from '@mdi/js';
 import { mdiHandCoinOutline } from '@mdi/js';
+import { Dispatch } from "react";
 
 
-
-
-export default function PatientStep2(){
+export default function PatientStep2({setStep} : {setStep: Dispatch<React.SetStateAction<number>>}){
 
   return (
     <>
-    <BarraNewUser />
     <div className="bg-bgPatient h-screen">
       <div className="h-screen grid grid-cols-5 grid-rows-6 gap-2">
         <div className="bg-white col-span-3 row-span-5 col-start-2 row-start-1 grid grid-cols-3 grid-rows-4 gap-2 mt-10">
           <div className="row-span-3 border-r m-5 border-gray-200">
             <div className="m-5 rounded-ful">
-              <button className="">
+              <button onClick={() => setStep(1)}>
                 <Icon path={mdiArrowLeft} size={1} />
               </button>
             </div>
@@ -89,7 +86,7 @@ export default function PatientStep2(){
           </div>
         </div>
         <div className="col-start-4 row-start-6 justify-items-center">
-        <a href="/" className="text-base font-medium text-white px-[75px] py-[14px] bg-primary rounded-md hover:bg-cyan-800 grid">Confirm</a>
+          <a href="/" className="text-base font-medium text-white px-[75px] py-[14px] bg-primary rounded-md hover:bg-cyan-800 grid">Confirm</a>
         </div>
         
       </div>

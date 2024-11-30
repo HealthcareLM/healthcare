@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import {createBrowserRouter, Outlet, RouterProvider} from 'react-router-dom'
 import './index.css'
 import Login from './routes/Login.tsx'
 import Register from './routes/Register.tsx'
@@ -10,17 +10,18 @@ import Profile from './routes/Profile.tsx'
 import ProfileHistory from './routes/ProfileHistory.tsx'
 import Available from './routes/Available.tsx'
 
-import PatientStep1 from './routes/PatientStep1.tsx'
 import PatientRecords from './routes/PatientRecords.tsx'
 import MenuConsults from './routes/MenuConsults.tsx'
 import OnlineConsult from './routes/OnlineConsult.tsx'
-import PatientStep2 from './routes/PatientStep2.tsx'
+import PatientStep2 from './components/PatientStep2.tsx'
 import ProfileDocuments from './routes/ProfileDocuments.tsx'
 import AuthProvider from './contexts/AuthContext.tsx'
 import ProtectedRoute from './routes/ProtectedRoute.tsx'
 import Header from './layouts/Header.tsx'
 
 import { EditarUsuario } from './routes/EditarUsuario.tsx'
+import Schedule from './routes/Schedule.tsx'
+
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -48,46 +49,49 @@ const router = createBrowserRouter([
           },
           {
             path: '/profile',
-            element: <Profile/>
+            element: <Outlet/>,
+            children: [
+              {
+                path: '',
+                element: <Profile/>
+              },
+              {
+                path: 'history',
+                element: <ProfileHistory/>
+              },
+              {
+                path: 'documents',
+                element: <ProfileDocuments/>
+              },
+              {
+                path: 'configure',
+                element: <EditarUsuario/>
+              }
+            ]
+          },
+          {
+            path: '/available',
+            element: <Available/>
+          },
+          {
+            path: '/schedule',
+            element: <Schedule/>
+          },
+          {
+            path: '/patientrecords',
+            element: <PatientRecords/>
+          },
+          {
+            path: '/menuconsults',
+            element: <MenuConsults/>
+          },
+          {
+            path: '/onlineconsult',
+            element: <OnlineConsult/>
           },
         ]
       }
     ]
-  },
-  {
-    path: '/profilehistory',
-    element: <ProfileHistory/>
-  }, {
-    path: '/available',
-    element: <Available/>
-  },
-  {
-    path: '/profiledocuments',
-    element: <ProfileDocuments/>
-  },
-  {
-    path: '/PatientStep1',
-    element: <PatientStep1/>
-  },
-  {
-    path: '/PatientStep2',
-    element: <PatientStep2/>
-  },
-  {
-    path: '/patientrecords',
-    element: <PatientRecords/>
-  },
-  {
-    path: '/MenuConsults',
-    element: <MenuConsults/>
-  },
-  {
-    path: '/OnlineConsult',
-    element: <OnlineConsult/>
-  },
-  {
-    path: '/editarusuario',
-    element: <EditarUsuario/>
   },
 ])
 

@@ -5,13 +5,13 @@ import { titles } from '../data/TitlesData';
 
 export default function Barra({setMenu}: {setMenu:React.Dispatch<React.SetStateAction<boolean>>}) {
 
-    const location = useLocation().pathname;
+    const location = useLocation().pathname.split('/')[1];
 
     return (
         <div className="w-full mb-6 flex justify-between items-center xl:gap-14 flex-col md:flex-row">
             <div className='md:hidden w-full flex justify-between items-center'>
                 <div className="flex my-4 md:my-0">
-                    <img className='w-7 mr-1' src="./logo.svg" alt="logo" />
+                    <img className='w-7 mr-1' src="/logo.svg" alt="logo" />
                     <h2 className='text-primary font-medium text-3xl'>Healthi</h2>
                 </div>
 
@@ -22,7 +22,7 @@ export default function Barra({setMenu}: {setMenu:React.Dispatch<React.SetStateA
 
             <div className='w-full flex items-center  md:w-auto'>
                 <div className="w-14 h-14 mr-2 md:hidden">
-                    <img className='rounded-full' src="./users/user.png" alt="imagen usuario"/>
+                    <img className='rounded-full' src="/users/user.png" alt="imagn"/>
                 </div>
                 <h1 className="font-bold text-4xl block md:mr-8"><span className="font-medium text-xl text-gray_1 block">Hi, Stevan dux</span>{titles[location] || ''}</h1>
             </div>
