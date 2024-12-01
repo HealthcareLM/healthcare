@@ -85,7 +85,7 @@ export default function PatientStep2({setStep} : {setStep: Dispatch<React.SetSta
             </div>
           </div>
         </div>
-        <div className="col-start-4 row-start-6 justify-items-center">
+        <div className="col-start-4 row-start-6 justify-items-end">
           <a href="/" className="text-base font-medium text-white px-[75px] py-[14px] bg-primary rounded-md hover:bg-cyan-800 grid">Confirm</a>
         </div>
         

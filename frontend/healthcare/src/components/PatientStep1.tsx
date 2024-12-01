@@ -44,7 +44,7 @@ export default function PatientStep1({setStep} : {setStep: Dispatch<React.SetSta
             <h3 className="m-10 font-bold"> Select Date and Time</h3>
             <CalendarPatient />
             <p className="m-4 text-[16px]">Thursday, 8th November</p>
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-5 gap-4 p-4">
               <div className="h-full border border-gray-500 rounded hover:bg-blue-gray-100">
                 <p className="p-2 text-center">10:30am</p>
               </div>
@@ -72,7 +72,7 @@ export default function PatientStep1({setStep} : {setStep: Dispatch<React.SetSta
             </div>
           </div>
         </div>
-        <div className="col-start-4 row-start-6 justify-items-center">
+        <div className="col-start-4 row-start-6 justify-items-end">
           <a className="text-base font-medium text-white px-[75px] py-[14px] bg-primary rounded-md hover:bg-cyan-800 grid cursor-pointer" onClick={() => setStep(2)}>Next</a>
         </div>
         
