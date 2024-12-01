@@ -1,7 +1,6 @@
 import express from "express"
 import usuariosRouter from "./routes/UsuariosRoutes"
 import citasRouter from "./routes/CitasRoutes";
-import db from "./config/database"
 import cors from 'cors'
 
 
