@@ -2,7 +2,11 @@ import Inicio from "../layouts/Inicio";
 import { ChangeEvent, FormEvent, useState } from "react";
 import showPassword from '/eyePassword.png';
 import { useAuth } from "../hooks/useAuth";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { API_URL } from "../data/Constants";
+import { Box, Modal } from "@mui/material";
+
+import check from '../assets/checkmark.png';
 
 type SignInType = {
   email: string,
@@ -12,6 +16,8 @@ type SignInType = {
 }
 
 export default function Register() {
+  const navigate = useNavigate()
+
   // GUARDADO DE DATOS
   const [sigin, setSigin] = useState<SignInType>({
     email: '',
@@ -19,6 +25,9 @@ export default function Register() {
     password: '',
     birthdate: ''
   })
+  const [validar, setValidar] = useState(false)
+  const [errores, setErrores] = useState<string>('')
+  const [modal, setModal] = useState(false)
   
 
   // PASSWORD
@@ -41,19 +50,60 @@ export default function Register() {
     })
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    setErrores('')
+
     e.preventDefault()
     
+    try {
+      const response = await fetch(`${API_URL}/usuarios/signin`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(sigin)
+      })
+
+      if(response.ok) {
+        const data = await response.json()
+        setModal(true)
+
+        setTimeout(() => {
+          navigate("/login")
+        }, 3000)
+      } else {
+        const data = await response.json()
+        setErrores(data.error)
+      }
+    } catch (error) {
+      
+    }
   }
 
   return (
     <Inicio>
+
+      <Modal
+        open={modal}
+        onClose={() => setModal(false)}
+      >
+        <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-gray-900 w-[500px] shadow-lg rounded-md p-10 text-center">
+          <h3 className="text-white text-2xl">Te has registrado con exito</h3>
+          <p className="text-white py-2">A continuacion, tendras que iniciar sesion para ingresar en tu cuenta</p>
+          <img src={check} className="w-40 mx-auto my-4" />
+        </div>
+      </Modal>
+
       <div className="text-center mb-9">
           <h1 className="text-[48px] font-bold">Hey there</h1>
           <h3 className="text-[20px] text-gray-500">Already know Musaki? <a href="/login" className="inline-block text-blue-500 hover:underline hover:scale-110 transition-all duration-75">Log in</a> </h3>
       </div>
 
        <form action="" className="space-y-4 px-44" onSubmit={handleSubmit}>
+          {errores ? (
+            <div className="text-red-600 text-sm py-2 font-semibold">{errores}</div>
+          ) : ''}
+
           <div className="mb-4 gap-1">
             <label htmlFor="email" className="block text-sm font-semibold">Email address</label>
             <input type="email" id="email" name="email" placeholder="steve.madden@gmail.com" className="w-full p-2 border rounded" required value={sigin.email} onChange={handleChange}/>
