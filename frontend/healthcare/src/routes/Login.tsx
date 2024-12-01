@@ -2,11 +2,12 @@ import Inicio from "../layouts/Inicio";
 import { useState } from "react";
 import showPassword from '/eyePassword.png';
 import { useAuth } from "../hooks/useAuth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { API_URL } from "../data/Constants";
 
 export default function Login() {
-  // const { saveUser, setIsAuthenticated } = useAuth()
+
+  const navigate = useNavigate()
 
   const [seePassword, setSeePassword] = useState(false)
 
@@ -15,7 +16,11 @@ export default function Login() {
     setSeePassword(!seePassword);
   })
 
-  const { saveUser } = useAuth() 
+  const { isAuthenticated, saveUser } = useAuth()
+
+  if(isAuthenticated) {
+    navigate('/dashboard')
+  }
   
 
   const [email, setEmail] = useState('')
@@ -23,7 +28,7 @@ export default function Login() {
   const [error, setError] = useState<string>('')
   const navegate = useNavigate()
 
-  const handleLogin =async(e: React.FormEvent) => {
+  const handleLogin = async(e: React.FormEvent) => {
     e.preventDefault()
 
     try {
@@ -37,11 +42,9 @@ export default function Login() {
           password
          })
       })
-      console.log(response);
 
       if (response.ok) {
         const data = await response.json()
-        console.log(data.user);
         saveUser(data.user)
           // window.location.href = '/profile' -> Refrezca la pagina, se implementa mejor Navegation, pero no  se puede usar en try-catch
         navegate('/profile')

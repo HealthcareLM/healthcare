@@ -244,4 +244,17 @@ export class UsuariosController {
     }
 
   }
+
+  public static async upload(req: Request, res: Response) {
+    if (!req.file) {
+      res.status(400).send("No se ha subido ningún archivo.");
+      return
+    }
+  
+    res.status(200).send({
+      message: "Archivo subido exitosamente",
+      filePath: `/public/users/${req.file.filename}`, // Ruta accesible desde el frontend
+      namefile: req.file.filename
+    });
+  }
 }

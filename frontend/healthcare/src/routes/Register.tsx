@@ -17,6 +17,7 @@ type SignInType = {
 
 export default function Register() {
   const navigate = useNavigate()
+  const { isAuthenticated } = useAuth() 
 
   // GUARDADO DE DATOS
   const [sigin, setSigin] = useState<SignInType>({
@@ -37,9 +38,9 @@ export default function Register() {
     setSeePassword(!seePassword);
   })
 
-  const { isAuthenticated } = useAuth() 
+
   if(isAuthenticated) {
-    return <Navigate to="/profile" />
+    navigate('/dashboard')
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {

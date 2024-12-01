@@ -2,6 +2,7 @@ import express from "express"
 import usuariosRouter from "./routes/UsuariosRoutes"
 import citasRouter from "./routes/CitasRoutes";
 import cors from 'cors'
+import path from "path"
 
 
 const app = express()

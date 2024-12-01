@@ -7,10 +7,20 @@ import BarraNewUser from "../components/BarraNewUser";
 import { useEffect, useState } from "react";
 import { Doctor } from "../types/Usuarios";
 import { API_URL } from "../data/Constants";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Home() {
 
+  const navigate = useNavigate()
+
+  const { isAuthenticated } = useAuth()
+
   const [doctores, setDoctores] = useState<Doctor[]>([])
+
+  if(isAuthenticated) {
+    navigate('/dashboard')
+  }
 
   useEffect(() => {
     // Definir la función asíncrona
