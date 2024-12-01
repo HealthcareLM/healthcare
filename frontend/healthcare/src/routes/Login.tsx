@@ -3,8 +3,11 @@ import { useState } from "react";
 import showPassword from '/eyePassword.png';
 import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
+import { API_URL } from "../data/Constants";
 
 export default function Login() {
+  // const { saveUser, setIsAuthenticated } = useAuth()
+
   const [seePassword, setSeePassword] = useState(false)
 
   const clicSee = (() =>{
@@ -12,10 +15,49 @@ export default function Login() {
     setSeePassword(!seePassword);
   })
 
-  const { isAuthenticated } = useAuth() 
+  const { isAuthenticated, saveUser, setIsAuthenticated} = useAuth() 
   
-  if(isAuthenticated) {
-    return <Navigate to="/dashboard" />
+  // if(isAuthenticated) {
+  //   return <Navigate to="/dashboard" />
+  // }
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
+
+  const handleLogin =async(e: React.FormEvent) => {
+    e.preventDefault()
+    setError(null)
+
+    try {
+      const response = await fetch(`${API_URL}/usuarios/login`, { 
+        method: 'POST',
+        headers: { 
+          "Content-Type": "application/json"
+         },
+         body: JSON.stringify({
+          email,
+          password
+         })
+      })
+      console.log(response);
+
+      if (response.ok) {
+        const data = await response.json()
+        console.log(data.user);
+        // saveUser(data.user)
+        setIsAuthenticated(true)
+        window.location.href = '/profile'
+      } else {
+        // console.log(response.body);
+        throw new Error("Crendenciales Invalidas")
+        const data = await response.json()
+        setError(data || 'Credenciales Invalidas')
+      }
+      
+    } catch (error) {
+      throw new Error("Error al iniciar sesion")
+    }
   }
 
   return (
@@ -25,16 +67,19 @@ export default function Login() {
           <h3 className="text-[20px] text-gray-500">New to  Musaki? <a href="/signup" className="inline-block text-blue-500 hover:underline hover:scale-110 transition-all duration-75">Sign up</a> </h3>
       </div>
 
-       <form action="" className="space-y-4 px-44">
+       <form action="" className="space-y-4 px-44" onSubmit={ handleLogin }>
+          {error && (<div className="text-red text-sm mb-4"> 
+            {error}
+          </div>) }
           <div className="campo mb-4 gap-1">
             <label htmlFor="email" className="block text-sm font-semibold">Email address</label>
-            <input type="email" id="email" placeholder="Email address" className="w-full p-2 border rounded" required />
+            <input type="email" id="email" placeholder="Email address" className="w-full p-2 border rounded" value={email} onChange={e => setEmail(e.target.value)} required />
           </div>
 
           <div className="relative">
             <label htmlFor="password" className="block text-sm font-semibold">Your password</label>
             <div className="flex items-center relative">
-              <input type={seePassword ? "text" : "password"} id="password" placeholder="*******" className="w-full p-2 border rounded" required />
+              <input type={seePassword ? "text" : "password"} id="password" placeholder="*******" className="w-full p-2 border rounded" value={password} onChange={e => setPassword(e.target.value)}  required />
               <img src={showPassword} alt="ver contraseña imagen" className="absolute cursor-pointer right-4 h-6"
                   onClick={clicSee}/>
             </div>

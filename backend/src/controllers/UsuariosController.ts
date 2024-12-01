@@ -182,13 +182,15 @@ export class UsuariosController {
         const passwordValidate = await Usuarios.verifyPassword(password, usuario.password)
         
         if (!passwordValidate) {
-           res.status(401).json({ error: "Contraseña incorrecta" })
+           res.status(401).json({ error: "usuario o contraseña incorrecta" })
         } else {
           res.status(200).json({
-           message: 'Inicio de sesión exitoso',
+           message: 'Inicio de sesión exitoso', 
            user: {
              id: usuario.id,
+             nombre: usuario.nombre,
              email: usuario.email,
+             imagen: usuario.imagen,
              rol: usuario.rol,
            },
          });

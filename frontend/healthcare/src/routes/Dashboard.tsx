@@ -70,9 +70,9 @@ export default function Dashboard() {
             <h3 className="text-2xl font-semibold mb-5">Recommended Doctors</h3>
 
             <div className="flex justify-between gap-4 flex-col md:flex-row">
+              {/* <CardDoctor/>
               <CardDoctor/>
-              <CardDoctor/>
-              <CardDoctor/>
+              <CardDoctor/> */}
             </div>
           </div>
         </div>
