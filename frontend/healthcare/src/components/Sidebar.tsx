@@ -1,12 +1,12 @@
 import { Link, useLocation } from 'react-router-dom'
 import Icon from '@mdi/react';
-import { mdiLogout } from '@mdi/js';
+
 import { SidebarLinks } from '../data/SidebarData';
 import { useAuth } from "../hooks/useAuth";
 
-export default function Sidebar({menu}: {menu:boolean}) {
 
-  const { logout } = useAuth()
+
+export default function Sidebar({menu}: {menu:boolean}) {
 
   const location = useLocation().pathname.split('/')[1];
 
@@ -19,10 +19,10 @@ export default function Sidebar({menu}: {menu:boolean}) {
 
         <div className='w-full h-full flex flex-col justify-between'>
           <div>
-            <Link className="flex mt-11 cursor-pointer" to='/'>
+            <a className="flex mt-11 cursor-pointer" href='/'>
                 <img className='w-7 mr-1' src="/logo.svg" alt="logo" />
                 <h2 className='text-primary text-3xl'>Healthi</h2>
-            </Link>
+            </a>
 
             <nav className="w-full mt-14">
                 <ul className='flex flex-col gap-3'>
@@ -31,9 +31,6 @@ export default function Sidebar({menu}: {menu:boolean}) {
                       <Link className={`flex items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white ${location === link.ruta.split('/')[1] ? 'bg-primary text-white' : ''}`} to={link.ruta}><Icon path={link.icono} size={'16px'} className='mr-2 hover:fill-white'/>{link.title}</Link>
                     </li>
                   ))}
-                  <li>
-                      <div className='flex items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white cursor-pointer' onClick={logout}><Icon path={mdiLogout} size={'16px'} className='mr-2 hover:fill-white'/>Logout</div>
-                  </li>
                 </ul>
             </nav>
           </div>
