@@ -2,10 +2,15 @@ import Icon from '@mdi/react';
 import { mdiMagnify, mdiMapMarkerOutline, mdiBellOutline, mdiMenu } from '@mdi/js';
 import { useLocation } from 'react-router-dom';
 import { titles } from '../data/TitlesData';
+import { useAuth } from "../hooks/useAuth";
+
+
 
 export default function Barra({setMenu}: {setMenu:React.Dispatch<React.SetStateAction<boolean>>}) {
 
     const location = useLocation().pathname.split('/')[1];
+
+    const { user } = useAuth()
 
     return (
         <div className="w-full mb-6 flex justify-between items-center xl:gap-14 flex-col md:flex-row">
@@ -24,7 +29,7 @@ export default function Barra({setMenu}: {setMenu:React.Dispatch<React.SetStateA
                 <div className="w-14 h-14 mr-2 md:hidden">
                     <img className='rounded-full' src="/users/user.png" alt="imagn"/>
                 </div>
-                <h1 className="font-bold text-4xl block md:mr-8"><span className="font-medium text-xl text-gray_1 block">Hi, Stevan dux</span>{titles[location] || ''}</h1>
+                <h1 className="font-bold text-4xl block md:mr-8"><span className="font-medium text-xl text-gray_1 block">Hi, {user.nombre} </span>{titles[location] || ''}</h1>
             </div>
 
             <form className='flex items-center bg-gray_4 rounded-md h-fit flex-grow mt-4 md:mt-0'>
@@ -62,9 +67,9 @@ export default function Barra({setMenu}: {setMenu:React.Dispatch<React.SetStateA
 
                 <div className="flex justify-center items-center">
                     <div className="w-9 h-9 mr-2">
-                        <img className='rounded-full' src="./users/user.png" alt="imagen usuario"/>
+                        <img className='rounded-full' src={user.imagen} alt="imagen usuario"/>
                     </div>
-                    <p className='text-base font-semibold whitespace-nowrap'>Stevan dux</p>
+                    <p className='text-base font-semibold whitespace-nowrap'> {user.nombre} </p>
                 </div>
             </div>
         </div>

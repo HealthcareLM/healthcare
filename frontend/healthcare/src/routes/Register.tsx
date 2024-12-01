@@ -97,7 +97,7 @@ export default function Register() {
           <h3 className="text-[20px] text-gray-500">Already know Musaki? <a href="/login" className="inline-block text-blue-500 hover:underline hover:scale-110 transition-all duration-75">Log in</a> </h3>
       </div>
 
-       <form action="" className="space-y-4 px-44" onSubmit={handleSubmit}>
+       <form action="" className="space-y-4 px-44 md:px-16" onSubmit={handleSubmit}>
           {errores ? (
             <div className="text-red-600 text-sm py-2 font-semibold">{errores}</div>
           ) : ''}

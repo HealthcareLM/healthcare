@@ -14,22 +14,22 @@ export default function Inicio({children}:{children:ReactNode}) {
           <p className='text-[72px] text-white items-center'>Healthi</p>
         </div>
 
-          <img src={Ellipse201} alt="Imagen Semi-Circulo" className="absolute w-full top-[234px] object-cover"/>
+          <img src={Ellipse201} alt="Imagen Semi-Circulo" className="absolute w-full top-[234px] object-cover "/>
       </div>
 
       <img src={Doctors} alt="Imagen Doctores" className="absolute bottom-0 w-[60%] left-[-5%] max-w-none " />
 
-      <div className="flex justify-center flex-col w-1/2 ">
+      <div className="flex justify-center flex-col w-1/2">
 
         {children}
 
 
         <div className="space-y-4 px-32 mt-10 flex flex-col">
           <div>
-            <p className="text-sm mb-4">Or log in with</p>
+            <p className="xl:text-sm xl:mb-4 mb:text-center ">Or log in with</p>
           </div>
 
-          <div className="flex items-center justify-center gap-44">
+          <div className="flex items-center justify-center gap-44 md:gap-10  ">
 
             <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-white shadow-md shadow-gray-200 hover:scale-125 transition-all duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
