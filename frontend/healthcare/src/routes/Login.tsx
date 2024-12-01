@@ -15,20 +15,16 @@ export default function Login() {
     setSeePassword(!seePassword);
   })
 
-  const { isAuthenticated, saveUser, setIsAuthenticated} = useAuth() 
+  const { saveUser } = useAuth() 
   
-  // if(isAuthenticated) {
-  //   return <Navigate to="/dashboard" />
-  // }
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<string>('')
   const navegate = useNavigate()
 
   const handleLogin =async(e: React.FormEvent) => {
     e.preventDefault()
-    setError(null)
 
     try {
       const response = await fetch(`${API_URL}/usuarios/login`, { 
@@ -47,12 +43,13 @@ export default function Login() {
         const data = await response.json()
         console.log(data.user);
         saveUser(data.user)
+          // window.location.href = '/profile' -> Refrezca la pagina, se implementa mejor Navegation, pero no  se puede usar en try-catch
         navegate('/profile')
       } else {
         // console.log(response.body);
-        throw new Error("Crendenciales Invalidas")
-        const data = await response.json()
-        setError(data || 'Credenciales Invalidas')
+        // await response.json()
+        setError('Credenciales Invalidas')
+        throw new Error("Crendenciales Invalidas, vuelve a intentar")
       }
       
     } catch (error) {
@@ -68,9 +65,9 @@ export default function Login() {
       </div>
 
        <form action="" className="space-y-4 px-44" onSubmit={ handleLogin }>
-          {error && (<div className="text-red text-sm mb-4"> 
-            {error}
-          </div>) }
+
+          { error && (<div className="text-white font-semibold text-center text-sm mb-4 py-2 bg-red-500"> {error} </div>) }
+
           <div className="campo mb-4 gap-1">
             <label htmlFor="email" className="block text-sm font-semibold">Email address</label>
             <input type="email" id="email" placeholder="Email address" className="w-full p-2 border rounded" value={email} onChange={e => setEmail(e.target.value)} required />
