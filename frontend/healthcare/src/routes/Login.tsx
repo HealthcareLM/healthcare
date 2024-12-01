@@ -2,7 +2,7 @@ import Inicio from "../layouts/Inicio";
 import { useState } from "react";
 import showPassword from '/eyePassword.png';
 import { useAuth } from "../hooks/useAuth";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { API_URL } from "../data/Constants";
 
 export default function Login() {
@@ -24,6 +24,7 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const navegate = useNavigate()
 
   const handleLogin =async(e: React.FormEvent) => {
     e.preventDefault()
@@ -45,9 +46,8 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json()
         console.log(data.user);
-        // saveUser(data.user)
-        setIsAuthenticated(true)
-        window.location.href = '/profile'
+        saveUser(data.user)
+        navegate('/profile')
       } else {
         // console.log(response.body);
         throw new Error("Crendenciales Invalidas")
