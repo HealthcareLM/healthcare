@@ -67,7 +67,8 @@ export class CitasController {
 
         try {
             const citas = await Citas.getCitasByUser(userId);
-            res.status(200).json(citas);
+            
+            res.status(200).json({citas});
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
             res.status(500).json({ error: errorMessage || 'Error al obtener las citas del usuario' });

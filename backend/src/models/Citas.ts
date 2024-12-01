@@ -7,20 +7,32 @@ export const Citas = {
     async getCitasByUser(userId: string): Promise<ICita[]> {
         try {
             console.log(`Buscando citas para el usuario: ${userId}`); // Depuración
-            const snapshot = await db.collection(collectionName)
+            const patientSnapshot = await db.collection(collectionName)
                 .where('patientId', '==', userId)
                 .get();
-    
-            if (snapshot.empty) {
+            
+            const doctorSnapshot = await db.collection(collectionName)
+                .where('doctorId', '==', userId)
+                .get();
+            
+            if (patientSnapshot.empty && doctorSnapshot.empty) {
                 console.log('No se encontraron citas para este usuario'); // Depuración
                 return [];
             }
     
-            const citas: ICita[] = snapshot.docs.map(doc => ({
+            const citas: ICita[] = [
+                ...patientSnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
-            })) as ICita[];
-    
+            })),
+            ...doctorSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }))
+            ] as ICita[];
+            
+            
+
             console.log('Citas encontradas:', citas); // Depuración
             return citas;
         } catch (error) {
