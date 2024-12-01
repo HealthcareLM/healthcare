@@ -3,7 +3,7 @@ import Profilebar from "../components/Profilebar";
 import { Paciente, Usuario } from "../types/Usuarios";
 import { useAuth } from "../hooks/useAuth";
 import { API_URL } from "../data/Constants";
-import { Await, useNavigate } from "react-router-dom";
+import { Await, Link, useNavigate } from "react-router-dom";
 
 const initialDoctor = {
    id: '',
@@ -28,7 +28,7 @@ const initialPaciente = {
 
 export function EditarUsuario(){
    const navigate = useNavigate()
-   const { user } = useAuth()
+   const { user, saveUser } = useAuth()
 
    const [paciente, setPaciente] = useState(initialPaciente)
    const [nombre, setNombre] = useState('')
@@ -48,29 +48,30 @@ export function EditarUsuario(){
       })
    }
 
-   async function handleUpdateUser(filename: string) {
+   async function UpdatePaciente(filename?: string) {
       try {
-         const name = `${nombre} ${apellido}`
+         
+         const pacienteUpdate = paciente
 
-         setPaciente({
-            ...paciente,
-            imagen: filename,
-            nombre: name,
-         })
-
-         console.log(paciente);
+         if(filename) {
+            pacienteUpdate.imagen = filename
+         } else {
+            pacienteUpdate.imagen = user.imagen
+         }
 
          const responseUpdate = await fetch(`${API_URL}/usuarios/usuarioUpdate/${user.id}`, {
             method: 'PUT',
             headers: {
                "Content-Type": "application/json"
             },
-            body: JSON.stringify(paciente)
+            body: JSON.stringify(pacienteUpdate)
          })
 
          if (responseUpdate.ok) {
             const data = await responseUpdate.json()
-
+            
+            saveUser(data.user)
+            
             alert("El usuario se ha actualizado de manera correcta")
             // navigate('/profile')
          }
@@ -79,7 +80,9 @@ export function EditarUsuario(){
       }
    }
 
-   async function handleUpdateImg() {
+   async function handleSubmitPaciente(e: FormEvent<HTMLFormElement>) {
+      e.preventDefault()
+
       if (file) {
          const formData = new FormData();
          formData.append("file", file);
@@ -90,31 +93,23 @@ export function EditarUsuario(){
                body: formData,
             });
          
-         
             if (response.ok) {
                const data = await response.json()
-               return data
+               
+               await UpdatePaciente(data.namefile)
             } else {
-               console.log("Hubo un error al subir el archivo.")
-               return false
+               alert("Hubo un error al subir el archivo.")
             }
          } catch (error) {
             console.error("Error al subir el archivo:", error);
-            return false
          }
       } else {
-         return false
+         await UpdatePaciente()
       }
    }
 
-   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+   async function handleSubmitDoctor(e: FormEvent<HTMLFormElement>){
       e.preventDefault()
-      
-      const resultImg = await handleUpdateImg()
-
-      if(resultImg) {
-         await handleUpdateUser(resultImg.namefile)
-      }
    }
 
    return(
@@ -122,7 +117,7 @@ export function EditarUsuario(){
          <Profilebar/>
          <div className="p-3 mx-auto max-w-4xl md:px-10">
             {user.rol == 'doctor' ? (
-               <form action="" encType=" multipart/form-data ">
+               <form encType=" multipart/form-data " onSubmit={handleSubmitDoctor}>
                   <div className="space-y-4">
                      <h3 className=" font-semibold text-lg">General Information</h3>
                      <div className=" pt-7 md:flex md:space-x-3">
@@ -175,18 +170,12 @@ export function EditarUsuario(){
                   </div>
                </form>
             ) : user.rol == 'paciente' ? (
-               <form action="" encType=" multipart/form-data " onSubmit={handleSubmit}>
+               <form encType=" multipart/form-data " onSubmit={handleSubmitPaciente}>
                   <div className="space-y-4">
                      <h3 className=" font-semibold text-lg">General Information</h3>
-                     <div className=" pt-7 md:flex md:space-x-3">
-                        <div className="md:w-1/2">
-                           <label className=" text-gray-500 block" htmlFor="nombre">Name</label>
-                           <input className="flex w-full p-2 border rounded-md" type="text" name="nombre"  placeholder="Alex" value={nombre} onChange={e => setNombre(e.target.value)}/>
-                        </div>
-                        <div className="md:w-1/2">
-                           <label className=" text-gray-500 block" htmlFor="apaterno">Last Name</label>
-                           <input className="flex w-full p-2 border rounded-md" type="text" name="apaterno" placeholder="Smith" value={apellido} onChange={e => setApellido(e.target.value)}/>
-                        </div>
+                     <div className="">
+                        <label className=" text-gray-500 block" htmlFor="nombre">Name (With Last Names)</label>
+                        <input className="flex w-full p-2 border rounded-md" type="text" name="nombre"  placeholder="Alex" value={paciente.nombre} onChange={handleChange}/>
                      </div>
                      <div className="md:flex md:space-x-3">
                         <div className="md:w-1/2">
@@ -207,8 +196,8 @@ export function EditarUsuario(){
                         <input className=" text-gray-500" type="file" placeholder="File" onChange={handleFileChange}/>
                      </div>
                      <div className="sm:flex gap-4 justify-center md:justify-end">
-                        <input type="submit" value="Cancel" className="  border rounded-lg p-3 bg-white border-gray-500 md:w-44"/>
-                        <input className="border rounded-lg p-3 bg-primary text-white md:w-44" type="submit" value="Save Changes" />
+                        <Link type="submit" to={'/profile'} className="text-center  border rounded-lg p-3 bg-white border-gray-500 md:w-44">Cancel</Link>
+                        <input className="border rounded-lg p-3 bg-primary text-white md:w-44 cursor-pointer" type="submit" value="Save Changes" />
                      </div>
                   </div>
                </form>
