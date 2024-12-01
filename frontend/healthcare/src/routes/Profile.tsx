@@ -3,9 +3,10 @@ import { Link } from "react-router-dom"
 import Icon from "@mdi/react"
 import { mdiRenameOutline} from "@mdi/js"
 import Profilebar from "../components/Profilebar"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Usuario } from "../types/Usuarios"
 import { API_URL } from "../data/Constants"
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function Profile( ) {   
    
@@ -20,10 +21,12 @@ export default function Profile( ) {
       imagen: ''
    })
 
+   const { user} = useContext(AuthContext);
    useEffect(() => {
       const fetchUsuario = async () => {
          try{
-            const response = await fetch(`${API_URL}/usuarios/usuario/kx3j98yiTh6AZSLuuj9S`)
+            //const id = request.params
+            const response = await fetch(`${API_URL}/usuarios/usuario/${user.id}`)
             const data = await response.json();
             setPerfil(data.usuario)
          }catch(error){
@@ -134,3 +137,7 @@ export default function Profile( ) {
     </>
   )
 }
+function useUser() {
+   throw new Error("Function not implemented.")
+}
+

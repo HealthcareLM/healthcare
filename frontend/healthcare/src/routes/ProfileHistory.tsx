@@ -3,9 +3,10 @@ import { mdiPlus } from "@mdi/js";
 import Icon from "@mdi/react";
 import { Link } from "react-router-dom";
 import CardConsultationHistory from "../components/CardConsultationHistory";
-import { useEffect, useState } from "react";
-import { Cita, Paciente } from "../types/Usuarios";
+import { useContext, useEffect, useState } from "react";
+import { Cita, Paciente, Usuario } from "../types/Usuarios";
 import { API_URL } from "../data/Constants";
+import {AuthContext} from "../contexts/AuthContext";
 
 export default function ProfileHistory() {
 
@@ -16,7 +17,7 @@ export default function ProfileHistory() {
    const [yesterdayCita, setYesterdayCita] = useState<Cita[]>([]); // Nuevo estado para citas del día
    const [nextCita, setNextCita] = useState<Cita[]>([]); // Nuevo estado para citas del día
 
-
+   const { user} = useContext(AuthContext);
    const Today = (fecha: string) => {
       const today = new Date();
       const RJ45 = today.toISOString().split('T')[0];
@@ -41,7 +42,7 @@ export default function ProfileHistory() {
    useEffect(() => {
       const fetchHistory = async () => {
          try{
-            const response = await fetch(`${API_URL}/citas/citas/usuario/tmAJ3PpTQPpNt3C5in6z`)
+            const response = await fetch(`${API_URL}/citas/citas/usuario/${user.id}`)
             const data = await response.json()
             
             setHistory(data.citas)
