@@ -4,7 +4,7 @@ import showPassword from '/eyePassword.png';
 import { useAuth } from "../hooks/useAuth";
 import { Navigate, useNavigate } from "react-router-dom";
 import { API_URL } from "../data/Constants";
-import { Box, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 
 import check from '../assets/checkmark.png';
 
@@ -25,7 +25,6 @@ export default function Register() {
     password: '',
     birthdate: ''
   })
-  const [validar, setValidar] = useState(false)
   const [errores, setErrores] = useState<string>('')
   const [modal, setModal] = useState(false)
   
@@ -65,7 +64,6 @@ export default function Register() {
       })
 
       if(response.ok) {
-        const data = await response.json()
         setModal(true)
 
         setTimeout(() => {
@@ -76,7 +74,7 @@ export default function Register() {
         setErrores(data.error)
       }
     } catch (error) {
-      
+      throw new Error('Ha ocurrido un error al registrarse.')
     }
   }
 
@@ -88,8 +86,8 @@ export default function Register() {
         onClose={() => setModal(false)}
       >
         <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-gray-900 w-[500px] shadow-lg rounded-md p-10 text-center">
-          <h3 className="text-white text-2xl">Te has registrado con exito</h3>
-          <p className="text-white py-2">A continuacion, tendras que iniciar sesion para ingresar en tu cuenta</p>
+          <h3 className="text-white text-2xl">Te has registrado con éxito</h3>
+          <p className="text-white py-2">A continuación, tendrás que iniciar sesión para ingresar en tu cuenta</p>
           <img src={check} className="w-40 mx-auto my-4" />
         </div>
       </Modal>
