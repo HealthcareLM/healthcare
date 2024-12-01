@@ -2,15 +2,17 @@ import { Link, useLocation } from 'react-router-dom'
 import Icon from '@mdi/react';
 import { mdiLogout } from '@mdi/js';
 import { SidebarLinks } from '../data/SidebarData';
-import { useAuth } from '../hooks/useAuth';
-
+import { useAuth } from "../hooks/useAuth";
 
 export default function Sidebar({menu}: {menu:boolean}) {
 
   const { logout } = useAuth()
 
   const location = useLocation().pathname.split('/')[1];
+
+  const { user } = useAuth()
   
+  const linkUser = user.rol === "doctor" ? SidebarLinks.doctores.links : SidebarLinks.pacientes.links
 
   return (
     <aside className={`md:flex md:flex-col border-slateBorder border w-60 items-center px-5 h-screen ${menu ? 'fixed flex flex-col' : 'hidden'}  md:relative bg-white z-[60] justify-end`}>
@@ -24,7 +26,7 @@ export default function Sidebar({menu}: {menu:boolean}) {
 
             <nav className="w-full mt-14">
                 <ul className='flex flex-col gap-3'>
-                  {SidebarLinks.pacientes.links.map((link) => (
+                  {linkUser.map((link) => (
                     <li key={link.title}>
                       <Link className={`flex items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white ${location === link.ruta.split('/')[1] ? 'bg-primary text-white' : ''}`} to={link.ruta}><Icon path={link.icono} size={'16px'} className='mr-2 hover:fill-white'/>{link.title}</Link>
                     </li>
@@ -33,14 +35,6 @@ export default function Sidebar({menu}: {menu:boolean}) {
                       <div className='flex items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white cursor-pointer' onClick={logout}><Icon path={mdiLogout} size={'16px'} className='mr-2 hover:fill-white'/>Logout</div>
                   </li>
                 </ul>
-
-                {/* <ul className='flex flex-col gap-5'>
-                  {SidebarLinks.doctores.links.map((link) => (
-                    <li key={link.title}>
-                      <Link className={`flex items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white ${location === link.ruta.split('/')[1] ? 'bg-primary text-white' : ''}`} to={link.ruta}><Icon path={link.icono} size={'16px'} className='mr-2 hover:fill-white'/>{link.title}</Link>
-                    </li>
-                  ))}
-                </ul> */}
             </nav>
           </div>
 

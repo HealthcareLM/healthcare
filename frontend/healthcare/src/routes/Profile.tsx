@@ -2,10 +2,48 @@ import { Link } from "react-router-dom"
 
 import Icon from "@mdi/react"
 import { mdiRenameOutline} from "@mdi/js"
-import Header from "../layouts/Header"
 import Profilebar from "../components/Profilebar"
-export default function Profile() {   
-  return (
+import { useContext, useEffect, useState } from "react"
+import { Usuario } from "../types/Usuarios"
+import { API_URL } from "../data/Constants"
+import { AuthContext } from "../contexts/AuthContext";
+
+export default function Profile( ) {   
+   
+   const [perfil,setPerfil] = useState<Usuario>({
+      id: '',
+      email: '',
+      telefono: '',
+      password: '',
+      birthdate: '',
+      rol: 'paciente',
+      nombre: '',
+      imagen: ''
+   })
+
+   const { user} = useContext(AuthContext);
+   useEffect(() => {
+      const fetchUsuario = async () => {
+         try{
+            //const id = request.params
+            const response = await fetch(`${API_URL}/usuarios/usuario/${user.id}`)
+            const data = await response.json();
+            setPerfil(data.usuario)
+         }catch(error){
+            console.error('Error Fetch Profile', error)
+         }
+      }
+      fetchUsuario()      
+   },[])
+
+   function AGE (){
+      const actual = new Date()
+      const nacimiento = new Date(perfil.birthdate)
+      let edad = actual.getFullYear() - nacimiento.getFullYear()
+      return edad
+   }
+
+   return (
     <>
       <div className="flex flex-col md:flex-row pb-7 border rounded-lg w-full">
          <Profilebar/>
@@ -17,8 +55,12 @@ export default function Profile() {
                      <img src="/users/profile.png" alt="" className="w-full block" />
                   </div>
                   <div>
-                     <p className="text-lg font-semibold">Stevan Dux</p>
-                     <p className="text-gray-500 text-sm">Garstro Doctor</p>
+                     <p className="text-lg font-semibold">{perfil?.nombre}</p>
+                     {perfil?.rol === "doctor" && (
+                        <>
+                           <p className="text-gray-500 text-sm">{perfil?.especialidad}</p>
+                        </>
+                     )}
                      <p className="text-gray-500 text-sm">Unites states</p>                     
                   </div>
                </div>
@@ -34,21 +76,25 @@ export default function Profile() {
                   <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between">
                      <div className="sm:w-1/3 md:w-3/6 lg:w-4/6">
                         <p className="text-gray-500 text-sm ">Name</p>
-                        <p className="font-semibold">Stavn dux</p>
+                        <p className="font-semibold">{perfil?.nombre}</p>
                         <p className="text-gray-500 pt-3 text-sm ">Phone Number</p>
-                        <p className="font-semibold">+ 1982378473</p>
+                        <p className="font-semibold">{perfil?.telefono}</p>
                      </div>
                      <div className="sm:w-1/3 md:w-3/6 lg:w-4/6">
                         <p className="text-gray-500 text-sm ">Date of Birth</p>
-                        <p>03/04/1996</p>
+                        <p className="font-semibold">{perfil?.birthdate}</p>
                         <p className="text-gray-500 pt-3 text-sm ">Email Address</p>
-                        <p className="font-semibold">email@ugto.mx</p>
+                        <p className="font-semibold">{perfil?.email}</p>
                      </div>
                      <div className="sm:w-1/3 md:w-3/6 lg:w-4/6" >
                         <p className="text-gray-500 text-sm ">Age</p>
-                        <p className="font-semibold">56</p>
+                        <p className="font-semibold">{AGE()}</p>
                         <p className="text-gray-500 pt-3 text-sm">Bio</p>
-                        <p className="font-semibold">Gartro Doctor</p>
+                        {perfil?.rol === "doctor" && (
+                        <>
+                           <p className="font-semibold">{perfil?.especialidad}</p>
+                        </>
+                        )}
                      </div>
                   </div>
             </div>
@@ -58,7 +104,7 @@ export default function Profile() {
                   <div className="sm:w:1/2 md:w-1/2 lg:w-1/2 ">
                      <p className="text-gray-500 text-sm md:border-r-4">Speech</p>
                      <p className="md:border-r-4">None</p>
-                     <p className="text-gray-500 text-sm pt-3">Speech</p>
+                     <p className="text-gray-500 text-sm pt-3">Physical</p>
                      <p>None</p>
                   </div>
                   <div className="sm:w:1/2 md:w-1/2 lg:w-1/2 md:pl-4">
@@ -91,3 +137,7 @@ export default function Profile() {
     </>
   )
 }
+function useUser() {
+   throw new Error("Function not implemented.")
+}
+
