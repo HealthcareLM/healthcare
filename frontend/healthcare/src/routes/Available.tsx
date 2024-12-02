@@ -1,7 +1,10 @@
-import Header from "../layouts/Header";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
+import { useAuth } from "../hooks/useAuth";
+import { useEffect, useState } from "react";
+import { Cita } from "../types/Usuarios";
+import { API_URL } from "../data/Constants";
 
 
 
@@ -11,27 +14,107 @@ export default function Available() {
   const components = {
     event: (props: {title: string}) => {
       // console.log(props);
-      return <div className="bg-primary">{props.title}</div>
+      return <div>{props.title}</div>
     }
   }
 
-  const events = [
-    {
-      start: moment('2024-11-18T12:00:00').toDate(),
-      end: moment('2024-11-18T13:00:00').toDate(),
-      title: "Cita 1"
-    },
-    {
-      start: moment('2024-11-18T14:00:00').toDate(),
-      end: moment('2024-11-18T15:00:00').toDate(),
-      title: "Cita 2"
-    },
-    {
-      start: moment('2024-11-19T09:00:00').toDate(),
-      end: moment('2024-11-19T10:00:00').toDate(),
-      title: "Cita 3"
+  const { user } = useAuth()
+  const [ citaCalendar, setCitaCalendar ] = useState<Cita[]>([])
+
+
+  const nameUser = async(id: string) => {
+    try {
+      const responseDoc = await fetch(`${API_URL}/usuarios/usuario/${id}`)
+      const docJSON = await responseDoc.json()
+      // setPatientName(docJSON.nombre)
+
+      // console.log(docJSON);
+      
+      console.log(docJSON.usuario.nombre);
+      
+      return docJSON.usuario.nombre;
+
+    } catch (error) {
+        throw new Error("Error al recuperar citas por usuario")
     }
-  ]
+  }
+
+  useEffect(() => {
+    const CalendarData = async() => {
+      if (user.id) {
+        try {
+          const response = await fetch(`${API_URL}/citas/citas/usuario/${user.id}`)
+          
+          const dataJSON = await response.json()
+        
+          setCitaCalendar(dataJSON.citas)
+  
+        } catch (error) {
+          throw new Error("Error al recuperar citas por usuario")
+        }
+      }
+      
+    }
+    CalendarData()
+  }, [user.id]) // Aseguranos de pasar siempre el user.id
+
+
+  interface Event {
+    start: Date,
+    end: Date,
+    title: string
+  }
+
+  const [events, setEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const promiseResolve = await Promise.all(
+        citaCalendar.map(async (cita) => {
+          const nombrePaciente = await nameUser(cita.patientId); // Resolviendo la promesa
+          const nombreDoctor = await nameUser(cita.doctorId); // Resolviendo la promesa
+          return {
+            start: moment(`${cita.fecha}T${cita.hora}`).toDate(),
+            end: moment(`${cita.fecha}T${cita.hora}`).add(30, 'minutes').toDate(),
+            title: user.rol === 'doctor' ? `Paciente: ${nombrePaciente}` : `Doctor ${nombreDoctor}` 
+            // title: `Paciente: ${nombrePaciente}`,
+          };
+        })
+      );
+      setEvents(promiseResolve); // Suponiendo que tienes un estado 'events'
+    };
+  
+    if (citaCalendar.length > 0) {
+      fetchEvents();
+    }
+  }, [citaCalendar]); // Dependencia de citas
+
+  // const events = citaCalendar.map( cita => ({
+  //       start: moment(`${cita.fecha}T${cita.hora}`).toDate(),
+  //       end: moment(`${cita.fecha}T${cita.hora}`).add(30,'minutes').toDate(),
+  //       title: `Paciente: ${ nameUser(cita.patientId) }`
+  //   }))
+
+    // console.log(events);
+    
+
+  //  [z
+  //   {
+  //     start: moment('2024-11-18T12:00:00').toDate(),
+  //     end: moment('2 24-11-18T13:00:00').toDate(),
+  //     title: "Cita 1"
+  //   }//,
+    // {
+    //   start: moment('2024-11-18T14:00:00').toDate(),
+    //   end: moment('2024-11-18T15:00:00').toDate(),
+    //   title: "Cita 2"
+    // },
+    // {
+    //   start: moment('2024-11-19T09:00:00').toDate(),
+    //   end: moment('2024-11-19T10:00:00').toDate(),
+    //   title: "Cita 3"
+    // }
+  // ]
 
   return (
     <>

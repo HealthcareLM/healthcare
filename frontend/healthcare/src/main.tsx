@@ -21,6 +21,7 @@ import Header from './layouts/Header.tsx'
 import { EditarUsuario } from './routes/EditarUsuario.tsx'
 import Schedule from './routes/Schedule.tsx'
 import Auth from './routes/Auth.tsx'
+import Doctors from './routes/Doctors.tsx'
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
               {
                 path: "/dashboard",
                 element: <Dashboard/>
+              },
+              {
+                path: '/doctors',
+                element: <Doctors/>
               },
               {
                 path: '/profile',
