@@ -26,8 +26,8 @@ export default function CardDoctor({doctor} : CardDoctorProps) {
                 <div className="flex gap-2 border-r border-gray_3 pr-4">
                     <Icon path={mdiClockOutline} size={'20px'} />
                     <div className="">
-                        <p className="block text-sm font-medium">Tue, Thu</p>
-                        <p className="block text-xs font-normal text-gray_2">10:00 AM-01:00 PM</p>
+                        <p className="block text-sm font-medium">Mon - Fri</p>
+                        <p className="block text-xs font-normal text-gray_2">{doctor.horario}</p>
                     </div>
                 </div>
                 <div className='flex gap-2 pl-4'>

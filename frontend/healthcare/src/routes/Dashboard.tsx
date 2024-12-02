@@ -10,6 +10,7 @@ import { mdiMapMarker, mdiChevronRight, mdiCalendarMonthOutline  } from '@mdi/js
 import { useEffect, useState } from "react";
 import { API_URL } from "../data/Constants";
 import { Doctor } from "../types/Usuarios";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
 
@@ -103,6 +104,7 @@ export default function Dashboard() {
                 <CardDoctor key={doctor.id} doctor={doctor}/>
               ))}
             </div>
+            <Link className="w-52 hover:scale-110 transition-all duration-300 text-white bg-primary hover:bg-cyan-700 text-sm font-medium text-center rounded-md py-3 mt-4 cursor-pointer block" to={'/doctors'}>See all doctors</Link>
           </div>
         </div>
     </>
