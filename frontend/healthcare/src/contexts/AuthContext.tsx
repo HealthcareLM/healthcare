@@ -11,7 +11,8 @@ type user = {
   nombre: string,
   email: string,
   imagen: string,
-  rol: string
+  rol: string,
+  telefono: string
 }
 
 // Definicion del tipo de contexto para la autenticacion
@@ -29,7 +30,8 @@ const initialUser : user = {
   nombre: '',
   email: '',
   imagen: '',
-  rol: ''
+  rol: '',
+  telefono: ''
 }
 
 

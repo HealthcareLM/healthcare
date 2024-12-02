@@ -192,6 +192,7 @@ export class UsuariosController {
              email: usuario.email,
              imagen: usuario.imagen,
              rol: usuario.rol,
+             telefono: usuario.telefono
            },
          });
           
