@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import Icon from '@mdi/react';
-
+import { mdiLogout } from '@mdi/js';
 import { SidebarLinks } from '../data/SidebarData';
 import { useAuth } from "../hooks/useAuth";
 
@@ -10,7 +10,7 @@ export default function Sidebar({menu}: {menu:boolean}) {
 
   const location = useLocation().pathname.split('/')[1];
 
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
   
   const linkUser = user.rol === "doctor" ? SidebarLinks.doctores.links : SidebarLinks.pacientes.links
 
@@ -31,6 +31,9 @@ export default function Sidebar({menu}: {menu:boolean}) {
                       <Link className={`flex items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white ${location === link.ruta.split('/')[1] ? 'bg-primary text-white' : ''}`} to={link.ruta}><Icon path={link.icono} size={'16px'} className='mr-2 hover:fill-white'/>{link.title}</Link>
                     </li>
                   ))}
+                  <li>
+                    <div className='flex items-center text-slate-500 p-3 rounded-md hover:bg-primary hover:text-white cursor-pointer' onClick={logout}><Icon path={mdiLogout} size={'16px'} className='mr-2 hover:fill-white'/>Logout</div>
+                  </li>
                 </ul>
             </nav>
           </div>

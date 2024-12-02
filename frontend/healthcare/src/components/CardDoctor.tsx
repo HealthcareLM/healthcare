@@ -11,7 +11,7 @@ export default function CardDoctor({doctor} : CardDoctorProps) {
     <div className="border border-slateBorder rounded-xl p-5 w-full relative">
         <div className="flex after:content-[''] after:block after:absolute after:h-px after:bg-gray_3 after:w-11/12 after:bottom-16 after:left-1/2 after:transform after:-translate-x-1/2">
             <div className="w-16 h-16 rounded-full overflow-hidden">
-                <img className="w-full h-full object-cover" src={`./doctors/${doctor.imagen}`} alt="foto doctor" />
+                <img className="w-full h-full object-cover" src={`/users/${doctor.imagen}`} alt="foto doctor" />
             </div>
             <div className="ml-4">
                 <p className="block text-lg font-medium">{doctor.nombre}</p>

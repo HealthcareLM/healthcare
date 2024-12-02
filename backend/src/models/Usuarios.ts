@@ -150,8 +150,10 @@ export const Usuarios = {
           birthdate: data.birthdate,
           rol: "doctor",
           nombre: data.nombre,
+          imagen: data.imagen,
           especialidad: data.especialidad,
-          costo: data.costo
+          costo: data.costo,
+          horario: data.horario
         }  as IDoctor
       }
   
@@ -163,7 +165,8 @@ export const Usuarios = {
           password: data.password,
           birthdate: data.birthdate,
           rol: "paciente",
-          nombre: data.nombre
+          nombre: data.nombre,
+          imagen: data.imagen
         } as IPaciente
       }
   
