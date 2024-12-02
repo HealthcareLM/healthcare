@@ -1,10 +1,9 @@
-import Header from "../layouts/Header";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 import { useAuth } from "../hooks/useAuth";
 import { useEffect, useState } from "react";
-import { Cita, Doctor } from "../types/Usuarios";
+import { Cita } from "../types/Usuarios";
 import { API_URL } from "../data/Constants";
 
 
