@@ -72,10 +72,12 @@ export default function Available() {
       const promiseResolve = await Promise.all(
         citaCalendar.map(async (cita) => {
           const nombrePaciente = await nameUser(cita.patientId); // Resolviendo la promesa
+          const nombreDoctor = await nameUser(cita.doctorId); // Resolviendo la promesa
           return {
             start: moment(`${cita.fecha}T${cita.hora}`).toDate(),
             end: moment(`${cita.fecha}T${cita.hora}`).add(30, 'minutes').toDate(),
-            title: `Paciente: ${nombrePaciente}`,
+            title: user.rol === 'doctor' ? `Paciente: ${nombrePaciente}` : `Doctor ${nombreDoctor}` 
+            // title: `Paciente: ${nombrePaciente}`,
           };
         })
       );
