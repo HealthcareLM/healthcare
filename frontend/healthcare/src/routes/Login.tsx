@@ -48,7 +48,11 @@ export default function Login() {
         const data = await response.json()
         saveUser(data.user)
           // window.location.href = '/profile' -> Refrezca la pagina, se implementa mejor Navegation, pero no  se puede usar en try-catch
-        navegate('/profile')
+        if(data.user.nombre === '') {
+          navegate('/profile')
+        } else {
+          navegate('/dashboard')
+        }
       } else {
         // console.log(response.body);
         // await response.json()

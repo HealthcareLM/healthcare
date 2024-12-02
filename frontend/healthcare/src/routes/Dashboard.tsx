@@ -7,11 +7,40 @@ import CardNearbyDoctor from "../components/CardNearbyDoctor";
 
 import Icon from '@mdi/react';
 import { mdiMapMarker, mdiChevronRight, mdiCalendarMonthOutline  } from '@mdi/js';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { API_URL } from "../data/Constants";
+import { Doctor } from "../types/Usuarios";
 
 export default function Dashboard() {
 
-  const [ubicacion, setUbicacion] = useState(true)
+  const [doctores, setDoctores] = useState<Doctor[]>([])
+  const [ubicacion, setUbicacion] = useState(false)
+
+  const handleLocationRequest = () => {
+    navigator.geolocation.getCurrentPosition(
+      () => {
+        setUbicacion(true)
+      }
+    )
+  }
+
+  useEffect(() => {
+    // Definir la función asíncrona
+    const fetchDoctores = async () => {
+      try {
+        const response = await fetch(`${API_URL}/usuarios/doctores/3`);
+        const data = await response.json();
+        setDoctores(data.data); // Actualizar el estado con los datos
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    };
+
+    // Llamar a la función asíncrona
+    fetchDoctores()
+  }, []);
+
+  
 
   return (
     <>
@@ -35,7 +64,7 @@ export default function Dashboard() {
                   <div className="flex border border-slateBorder rounded-xl items-center justify-center">
                     <div className="flex flex-col justify-center items-center gap-3 py-8 w-full">
                       <Icon path={mdiMapMarker} size={'42px'} />
-                      <p className="text-sm text-['#4E4E4E']">Please enable your location, so we can find nearby doctors. <span className="text-primary underline cursor-pointer text-sm">Enable Now</span></p>
+                      <p className="text-sm text-['#4E4E4E']">Please enable your location, so we can find nearby doctors. <span className="text-primary underline cursor-pointer text-sm" onClick={handleLocationRequest}>Enable Now</span></p>
                     </div>
                   </div>
                 ) : (
@@ -70,9 +99,9 @@ export default function Dashboard() {
             <h3 className="text-2xl font-semibold mb-5">Recommended Doctors</h3>
 
             <div className="flex justify-between gap-4 flex-col md:flex-row">
-              {/* <CardDoctor/>
-              <CardDoctor/>
-              <CardDoctor/> */}
+              {doctores.map(doctor => (
+                <CardDoctor key={doctor.id} doctor={doctor}/>
+              ))}
             </div>
           </div>
         </div>

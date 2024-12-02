@@ -45,6 +45,11 @@ export default function Profile( ) {
 
    return (
     <>
+      {user.nombre === '' ? (
+         <div className="w-full bg-red-600 rounded-md text-white text-center py-2">Antes de continuar, es necesario que termines de configurar tu cuenta.</div>
+      ) :
+         ''
+      }
       <div className="flex flex-col md:flex-row pb-7 border rounded-lg w-full">
          <Profilebar/>
          <div className=" p-3 w-full space-y-4">
@@ -132,12 +137,7 @@ export default function Profile( ) {
             </div>
          </div>
       </div>
-
-
     </>
   )
-}
-function useUser() {
-   throw new Error("Function not implemented.")
 }
 

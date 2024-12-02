@@ -1,6 +1,7 @@
 import Icon from '@mdi/react';
 import { mdiClockOutline } from '@mdi/js';
 import { Doctor } from '../types/Usuarios';
+import { Link } from 'react-router-dom';
 
 type CardDoctorProps = {
     doctor: Doctor
@@ -43,7 +44,7 @@ export default function CardDoctor({doctor} : CardDoctorProps) {
 
         </div>
 
-        <div className="w-full text-white bg-primary hover:bg-cyan-700 text-sm font-medium text-center rounded-md py-3 mt-4 cursor-pointer">Book an appointment</div>
+        <Link className="w-full text-white bg-primary hover:bg-cyan-700 text-sm font-medium text-center rounded-md py-3 mt-4 cursor-pointer block" to={'/schedule'}>Book an appointment</Link>
     </div>
   )
 }

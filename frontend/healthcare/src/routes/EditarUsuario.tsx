@@ -4,7 +4,30 @@ import { useAuth } from "../hooks/useAuth";
 import { API_URL } from "../data/Constants";
 import { Link, useNavigate } from "react-router-dom";
 
-const initialDoctor = {
+type pacienteState = {
+   email: string;
+   telefono: string;
+   birthdate: string;
+   rol: string;
+   nombre: string;
+   imagen: string;
+   id?: string;
+}
+
+type doctorState = {
+   email: string;
+   telefono: string;
+   birthdate: string;
+   rol: string;
+   nombre: string;
+   imagen: string;
+   especialidad: string;
+   costo: string;
+   horario: string;
+   id?: string;
+}
+
+const initialDoctor : doctorState = {
    email: '',
    telefono: '',
    birthdate: '',
@@ -13,15 +36,16 @@ const initialDoctor = {
    imagen: 'user.jpg',
    especialidad: '',
    costo: '',
-   horario: ''
+   horario: '',
 }
-const initialPaciente = {
+
+const initialPaciente : pacienteState = {
    email: '',
    telefono: '',
    birthdate: '',
    rol: 'paciente',
    nombre: '',
-   imagen: 'user.jpg'
+   imagen: 'user.jpg',
 }
 
 export function EditarUsuario(){
@@ -94,6 +118,8 @@ export function EditarUsuario(){
             pacienteUpdate.imagen = user.imagen
          }
 
+         delete pacienteUpdate.id
+
          const responseUpdate = await fetch(`${API_URL}/usuarios/usuarioUpdate/${user.id}`, {
             method: 'PUT',
             headers: {
@@ -127,6 +153,8 @@ export function EditarUsuario(){
          }
 
          doctorUpdate.horario = `${horario.entrada} - ${horario.salida}`
+
+         delete doctorUpdate.id
 
          const responseUpdate = await fetch(`${API_URL}/usuarios/usuarioUpdate/${user.id}`, {
             method: 'PUT',
