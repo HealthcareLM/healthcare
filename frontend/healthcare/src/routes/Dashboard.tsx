@@ -9,7 +9,6 @@ import Icon from '@mdi/react';
 import { mdiMapMarker, mdiChevronRight, mdiCalendarMonthOutline  } from '@mdi/js';
 import { useEffect, useState } from "react";
 import { API_URL } from "../data/Constants";
-import { Doctor } from "../types/Usuarios";
 import { Link } from "react-router-dom";
 import { Cita, Doctor } from "../types/Usuarios";
 
