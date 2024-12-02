@@ -15,26 +15,40 @@ export default function Available() {
   const components = {
     event: (props: {title: string}) => {
       // console.log(props);
-      return <div className="bg-primary">{props.title}</div>
+      return <div>{props.title}</div>
     }
   }
 
   const { user } = useAuth()
   const [ citaCalendar, setCitaCalendar ] = useState<Cita[]>([])
-  const [ doctor, setDoctor ] = useState<Doctor[]>([])
+
+
+  const nameUser = async(id: string) => {
+    try {
+      const responseDoc = await fetch(`${API_URL}/usuarios/usuario/${id}`)
+      const docJSON = await responseDoc.json()
+      // setPatientName(docJSON.nombre)
+
+      // console.log(docJSON);
+      
+      console.log(docJSON.usuario.nombre);
+      
+      return docJSON.usuario.nombre;
+
+    } catch (error) {
+        throw new Error("Error al recuperar citas por usuario")
+    }
+  }
 
   useEffect(() => {
     const CalendarData = async() => {
       if (user.id) {
         try {
           const response = await fetch(`${API_URL}/citas/citas/usuario/${user.id}`)
-          const responseDoc = await fetch(`${API_URL}/usuario/${user.id}`)
-
+          
           const dataJSON = await response.json()
-          const docJSON = await responseDoc.json()
-  
+        
           setCitaCalendar(dataJSON.citas)
-          setDoctor(docJSON.nombre)
   
         } catch (error) {
           throw new Error("Error al recuperar citas por usuario")
@@ -45,11 +59,44 @@ export default function Available() {
     CalendarData()
   }, [user.id]) // Aseguranos de pasar siempre el user.id
 
-  const events = citaCalendar.map( cita => ({
-      start: moment(`${cita.fecha}T${cita.hora}`).toDate(),
-      end: moment(`${cita.fecha}T${cita.hora}`).add(30,'minutes').toDate(),
-      title: `Cita con: ${cita.doctorId}`
-    }))
+
+  interface Event {
+    start: Date,
+    end: Date,
+    title: string
+  }
+
+  const [events, setEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const promiseResolve = await Promise.all(
+        citaCalendar.map(async (cita) => {
+          const nombrePaciente = await nameUser(cita.patientId); // Resolviendo la promesa
+          return {
+            start: moment(`${cita.fecha}T${cita.hora}`).toDate(),
+            end: moment(`${cita.fecha}T${cita.hora}`).add(30, 'minutes').toDate(),
+            title: `Paciente: ${nombrePaciente}`,
+          };
+        })
+      );
+      setEvents(promiseResolve); // Suponiendo que tienes un estado 'events'
+    };
+  
+    if (citaCalendar.length > 0) {
+      fetchEvents();
+    }
+  }, [citaCalendar]); // Dependencia de citas
+
+  // const events = citaCalendar.map( cita => ({
+  //       start: moment(`${cita.fecha}T${cita.hora}`).toDate(),
+  //       end: moment(`${cita.fecha}T${cita.hora}`).add(30,'minutes').toDate(),
+  //       title: `Paciente: ${ nameUser(cita.patientId) }`
+  //   }))
+
+    // console.log(events);
+    
+
   //  [z
   //   {
   //     start: moment('2024-11-18T12:00:00').toDate(),
