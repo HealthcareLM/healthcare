@@ -14,7 +14,7 @@ export default function ScheduleDoctor ({doctor} : ScheduleDoctorProps ) {
   return (
   <>
     <div className="m-4 flex">
-      <Icon className="text-gray_5 m-2" path={mdiStethoscope} size={1} /> <p className="text-gray_5 m-2">Dr.{doctor.nombre}</p>
+      <Icon className="text-gray_5 m-2" path={mdiStethoscope} size={1} /> <p className="text-gray_5 m-2">{doctor.nombre}</p>
     </div>
     <div className="m-4 flex">
       <Icon className="text-gray_5 m-2" path={mdiClockTimeThreeOutline} size={1} />
@@ -29,7 +29,7 @@ export default function ScheduleDoctor ({doctor} : ScheduleDoctorProps ) {
     </div>
     <div className="m-4 flex">
       <Icon className="text-gray_5 m-2" path={mdiHandCoinOutline} size={1} />
-      <p className="text-gray_5 m-2">{doctor.costo}</p>
+      <p className="text-gray_5 m-2">{`$${doctor.costo}.00`}</p>
     </div>
   </>
 

@@ -17,7 +17,7 @@ export default function PatientStep1({
 
   useEffect(() => {
     // Definir la función asíncrona
-    const fetchDoctores = async () => {
+    const fetchDoctor = async () => {
       try {
         const response = await fetch(`${API_URL}/usuarios/usuario/${id}`);
         const data = await response.json();
@@ -28,7 +28,7 @@ export default function PatientStep1({
     };
 
     // Llamar a la función asíncrona
-    fetchDoctores();
+    fetchDoctor();
   }, []); // El arreglo vacío asegura que solo se ejecute al montar el componente
 
   return (
