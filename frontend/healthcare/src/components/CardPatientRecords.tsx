@@ -40,7 +40,6 @@ export default function CardPatientRecords({cita} : CardRegisterProps){
 
       const fetchPaciente = async () => {
          try {
-            console.log(user)
             if(user.rol === "paciente" ){
                const response = await fetch(`${API_URL}/usuarios/usuario/${cita.doctorId}`);
                const data = await response.json();
@@ -56,14 +55,14 @@ export default function CardPatientRecords({cita} : CardRegisterProps){
           }
          }
       fetchPaciente()
-   },[])
+   },[user.id])
 
    const fecha = () => {
       const dia = new Date(cita.fecha)
-      const day = dia.toLocaleDateString("en-US", { weekday: "short" }); // 'short' para 'Fri'
-      const numero = dia.getDate()
-      console.log("diaa",numero)
-      console.log(day); // Output: "Fri"
+      const d = new Date(dia)
+      d.setDate(dia.getDate()+1)
+      const day = d.toLocaleDateString("en-MX", { weekday: "short" }); 
+      const numero = d.getDate()
       return {day,numero}
    }
    const {day,numero} = fecha()

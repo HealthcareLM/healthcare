@@ -10,7 +10,6 @@ import {AuthContext} from "../contexts/AuthContext";
 
 export default function ProfileHistory() {
 
-   //const [date, setDate] = useState<Date | null>(new Date());
    const [history,setHistory] = useState<Cita[]>([])
    const [todayCita, setTodayCita] = useState<Cita[]>([]); // Nuevo estado para citas del día
    const [yesterdayCita, setYesterdayCita] = useState<Cita[]>([]); // Nuevo estado para citas del día

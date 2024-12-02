@@ -17,7 +17,7 @@ export const SidebarLinks : LinksSidebar = {
       {icono: mdiNoteMultipleOutline, title: 'Patient Records', ruta: '/patientrecords'},
       {icono: mdiCalendarBlankOutline, title: 'My Availability', ruta: '/available'},
       {icono: mdiAccountCircleOutline, title: 'My Consults', ruta: '/MenuConsults'},
-      {icono: mdiVideoOutline , title: 'Online Consult', ruta: '/'},
+      {icono: mdiVideoOutline , title: 'Online Consult', ruta: '/onlineconsult'},
       {icono: mdiHelpCircleOutline, title: 'Help', ruta: '/'},
     ]
   },
