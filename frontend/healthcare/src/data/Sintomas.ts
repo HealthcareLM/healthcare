@@ -1,0 +1,22 @@
+export const diseases: string[] = [
+    "Flu",
+    "Diabetes",
+    "Hypertension",
+    "Asthma",
+    "Cancer",
+    "Alzheimer",
+    "Migraine",
+    "Gastritis",
+    "Pneumonia",
+    "Anemia",
+    "Bronchitis",
+    "Arthritis",
+    "Depression",
+    "Epilepsy",
+    "Hepatitis",
+    "Multiple Sclerosis",
+    "Leukemia",
+    "Parkinson's Disease",
+    "COVID-19",
+    "Kidney Failure"
+];

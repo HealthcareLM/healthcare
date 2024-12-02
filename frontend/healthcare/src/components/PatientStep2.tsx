@@ -5,9 +5,42 @@ import { mdiClockTimeThreeOutline } from '@mdi/js';
 import { mdiVideoOutline } from '@mdi/js';
 import { mdiHandCoinOutline } from '@mdi/js';
 import { Dispatch } from "react";
+import { useCita } from '../hooks/useCita';
+import { diseases } from '../data/Sintomas';
+import { API_URL } from '../data/Constants';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 
 export default function PatientStep2({setStep} : {setStep: Dispatch<React.SetStateAction<number>>}){
+
+  const { cita, setCita } = useCita()
+  const { user } = useAuth()
+
+  const navigate = useNavigate()
+
+  const HandleCreateCita = async () => {
+    try {
+      const response = await fetch(`${API_URL}/citas`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(cita)
+      })
+
+      if(response.ok) {
+        const data = await response.json()
+        alert(data.message)
+        navigate('/dashboard')
+      } else {
+        const data = await response.json()
+        alert('Ocurrio un error al agregar la cita: ' + data.error)
+      }
+    } catch (error) {
+      throw new Error('Ha ocurrido un error al registrarse.')
+    }
+  }
 
   return (
     <>
@@ -44,19 +77,19 @@ export default function PatientStep2({setStep} : {setStep: Dispatch<React.SetSta
             <form action="" className="items-center">
               <div className="grid w-[85%] m-5">
                 <label htmlFor="email" className="">Email address</label>
-                <input type="email" id="email" placeholder="steve.madden@gmail.com" className="w-4/3 p-2 border rounded" required />
+                <input type="email" id="email" placeholder="steve.madden@gmail.com" className="w-4/3 p-2 border rounded" disabled value={user.email} />
               </div>
 
               <div className="grid w-[85%] m-5">
                 <label htmlFor="number" className="">Phone Number</label>
-                <input type="number" id="number" placeholder="1234567890" className="w-4/3 p-2 border rounded" required />
+                <input type="number" id="number" placeholder="1234567890" className="w-4/3 p-2 border rounded" disabled value={user.telefono}/>
               </div>
               <div className="grid w-[85%] m-5">
                 <label htmlFor="" className="block text-sm font-semibold">Problem:</label>
-                <select id="problem" name="problem" className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  <option>Fever</option>
-                  <option>Cough</option>
-                  <option>Headache</option>
+                <select id="problem" name="problem" className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onChange={e => setCita({...cita, sintomas: e.target.value})}>
+                  {diseases.map(sintoma => (
+                    <option value={sintoma}>{sintoma}</option>
+                  ))}
                 </select>
               </div>
             </form>
@@ -86,7 +119,7 @@ export default function PatientStep2({setStep} : {setStep: Dispatch<React.SetSta
           </div>
         </div>
         <div className="col-start-4 row-start-6 justify-items-end">
-          <a href="/" className="text-base font-medium text-white px-[75px] py-[14px] bg-primary rounded-md hover:bg-cyan-800 grid">Confirm</a>
+          <a className="text-base font-medium text-white px-[75px] py-[14px] bg-primary rounded-md hover:bg-cyan-800 grid" onClick={HandleCreateCita}>Confirm</a>
         </div>
         
       </div>
