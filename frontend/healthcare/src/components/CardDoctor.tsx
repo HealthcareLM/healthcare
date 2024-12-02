@@ -44,7 +44,7 @@ export default function CardDoctor({doctor} : CardDoctorProps) {
 
         </div>
 
-        <Link className="w-full text-white bg-primary hover:bg-cyan-700 text-sm font-medium text-center rounded-md py-3 mt-4 cursor-pointer block" to={'/schedule'}>Book an appointment</Link>
+        <Link className="w-full text-white bg-primary hover:bg-cyan-700 text-sm font-medium text-center rounded-md py-3 mt-4 cursor-pointer block" to={`/schedule/${doctor.id}`}>Book an appointment</Link>
     </div>
   )
 }

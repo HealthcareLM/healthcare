@@ -78,7 +78,7 @@ const router = createBrowserRouter([
                 element: <Available/>
               },
               {
-                path: '/schedule',
+                path: '/schedule/:id',
                 element: <Schedule/>
               },
               {
