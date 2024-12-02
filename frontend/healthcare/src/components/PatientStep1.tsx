@@ -1,15 +1,30 @@
 import Icon from '@mdi/react';
 import { mdiArrowLeft } from '@mdi/js';
-import { mdiStethoscope } from '@mdi/js';
-import { mdiClockTimeThreeOutline } from '@mdi/js';
-import { mdiVideoOutline } from '@mdi/js';
-import { mdiHandCoinOutline } from '@mdi/js';
 import CalendarPatient from "./CalendarPatient";
 import { Dispatch } from "react";
-
+import { useEffect, useState } from "react";
+import { Doctor } from "../types/Usuarios";
+import { API_URL } from "../data/Constants";
+import ScheduleDoctor from "../components/ScheduleDoctor";
 
 export default function PatientStep1({setStep} : {setStep: Dispatch<React.SetStateAction<number>>}){
+  const [doctores, setDoctores] = useState<Doctor[]>([])
 
+  useEffect(() => {
+    // Definir la función asíncrona
+    const fetchDoctores = async () => {
+      try {
+        const response = await fetch(`${API_URL}/usuarios/usuario/tmAJ3PpTQPpNt3C5in6z`);
+        const data = await response.json();
+        setDoctores(data.data); // Actualizar el estado con los datos
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    };
+
+    // Llamar a la función asíncrona
+    fetchDoctores();
+  }, []); // El arreglo vacío asegura que solo se ejecute al montar el componente
   return (
     <>
     <div className="bg-bgPatient h-screen">
@@ -21,24 +36,9 @@ export default function PatientStep1({setStep} : {setStep: Dispatch<React.SetSta
                 <Icon path={mdiArrowLeft} size={1} />
               </button>
             </div>
-            <div className="m-4 flex">
-              <Icon className="text-gray_5 m-2" path={mdiStethoscope} size={1} /> <p className="text-gray_5 m-2">Dr.Stiven Jhonson</p>
-            </div>
-            <div className="m-4 flex">
-              <Icon className="text-gray_5 m-2" path={mdiClockTimeThreeOutline} size={1} />
-              <p className="text-gray_5 m-2">30 mins</p>
-            </div>
-            <div className="m-4 flex">
-              <Icon className="text-gray_5 m-2" path={mdiVideoOutline} size={2} />
-              <p className="text-gray_5 m-2">
-                Video call details provided upon
-                succesful confirmation
-              </p>
-            </div>
-            <div className="m-4 flex">
-              <Icon className="text-gray_5 m-2" path={mdiHandCoinOutline} size={1} />
-              <p className="text-gray_5 m-2">fees: zt150</p>
-            </div>
+            {doctores.map(doctor => (
+              <ScheduleDoctor key={doctor.id} doctor={doctor}/>
+            ))}
           </div>
           <div className="col-span-2 row-span-3">
             <h3 className="m-10 font-bold"> Select Date and Time</h3>
