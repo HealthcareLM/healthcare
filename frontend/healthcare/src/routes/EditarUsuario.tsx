@@ -1,9 +1,8 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Profilebar from "../components/Profilebar";
-import { Paciente, Usuario } from "../types/Usuarios";
 import { useAuth } from "../hooks/useAuth";
 import { API_URL } from "../data/Constants";
-import { Await, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const initialDoctor = {
    email: '',
@@ -26,7 +25,7 @@ const initialPaciente = {
 }
 
 export function EditarUsuario(){
-   
+
    const navigate = useNavigate()
    const { user, saveUser } = useAuth()
 
