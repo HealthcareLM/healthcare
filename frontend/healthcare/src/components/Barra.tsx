@@ -67,7 +67,7 @@ export default function Barra({setMenu}: {setMenu:React.Dispatch<React.SetStateA
 
                 <Link to={'/profile'} className="flex justify-center items-center">
                     <div className="w-9 h-9 mr-2 rounded-full overflow-hidden">
-                        <img className='object-cover h-full' src={`./users/${user.imagen}`} alt="imagen usuario"/>
+                        <img className='object-cover w-full h-full' src={`./users/${user.imagen}`} alt="imagen usuario"/>
                     </div>
                     <p className='text-base font-semibold whitespace-nowrap'> {user.nombre} </p>
                 </Link>

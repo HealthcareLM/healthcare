@@ -52,7 +52,7 @@ export default function Profile( ) {
             <div className="w-full rounded-lg border flex flex-row sm:items-center justify-between gap-4">
                <div className="flex items-center">
                   <div className="m-5 w-[100px] h-[100px] rounded-full overflow-hidden">
-                     <img src={`/users/${user.imagen}`} alt="" className="object-cover h-full" />
+                     <img src={`/users/${user.imagen}`} alt="" className="object-cover w-full h-full" />
                   </div>
                   <div>
                      <p className="text-lg font-semibold">{perfil?.nombre}</p>
