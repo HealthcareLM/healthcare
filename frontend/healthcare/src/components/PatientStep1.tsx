@@ -77,7 +77,7 @@ export default function PatientStep1({
           </div>
         </div>
         <div className="col-start-4 row-start-6 justify-items-end">
-          <a className="text-base font-medium text-white px-[75px] py-[14px] bg-primary rounded-md hover:bg-cyan-800 grid cursor-pointer" onClick={() => setStep(2)}>Next</a>
+          <a className="text-base font-medium text-white px-[75px] py-[14px] bg-primary rounded-md hover:bg-cyan-800 grid cursor-pointer" onClick={() => setStep(2)} to={`/schedule/${doctor.id}`}>Next</a>
         </div>
         
       </div>
