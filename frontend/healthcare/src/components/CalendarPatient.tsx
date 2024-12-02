@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useCita } from "../hooks/useCita";
 
 export default function CalendarPatient() {
   const [currentDate, setCurrentDate] = useState(new Date()); // Estado para el mes y año actual
   const [selectedDay, setSelectedDay] = useState<number | null>(null); // Día seleccionado
+
+  const { cita, setCita } = useCita()
 
   // Función para cambiar de mes
   const handleMonthChange = (direction: number) => {
@@ -45,7 +48,14 @@ export default function CalendarPatient() {
 
   const renderDay = (day: number, isCurrentMonth: boolean) => (
     <div
-      onClick={() => isCurrentMonth && setSelectedDay(selectedDay === day ? null : day)}
+      onClick={() => {
+        isCurrentMonth && setSelectedDay(selectedDay === day ? null : day)
+        const fecha = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${day}`
+        setCita({
+          ...cita,
+          fecha: fecha
+        })
+      }}
       className={`w-10 h-10 flex items-center justify-center cursor-pointer rounded-full 
         ${
           selectedDay === day && isCurrentMonth
