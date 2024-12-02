@@ -3,7 +3,10 @@ import { mdiMagnify, mdiMapMarkerOutline, mdiBellOutline, mdiMenu } from '@mdi/j
 import { Link, useLocation } from 'react-router-dom';
 import { titles } from '../data/TitlesData';
 import { useAuth } from "../hooks/useAuth";
-
+import { useState } from 'react';
+import { API_URL } from '../data/Constants';
+import { Doctor } from '../types/Usuarios';
+import { useNavigate } from "react-router-dom";
 
 
 export default function Barra({setMenu}: {setMenu:React.Dispatch<React.SetStateAction<boolean>>}) {
@@ -11,6 +14,38 @@ export default function Barra({setMenu}: {setMenu:React.Dispatch<React.SetStateA
     const location = useLocation().pathname.split('/')[1];
 
     const { user } = useAuth()
+
+    // implementacion de buscador
+    const [searchDoctor, setSearchDoctor] = useState('')
+    const [doctors, setDoctors] = useState([])
+    const navegate = useNavigate()
+    
+    const handleSearch = async (e: React.FormEvent) => {
+      e.preventDefault()
+
+      try {
+         const response = await fetch(`${API_URL}/usuarios/doctores`, {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json"
+          }
+         })
+
+         if (response.ok) {
+          const data = await response.json()
+          navegate('/doctors')
+          
+          setDoctors(data)
+
+         } else {
+          setDoctors([])
+          throw new Error("Error al buscar doctor")
+         }
+
+      } catch (error) {
+        throw new Error("No existe doctor")
+      }
+    }
 
     return (
         <div className="w-full mb-6 flex justify-between items-center xl:gap-14 flex-col md:flex-row">
@@ -32,7 +67,7 @@ export default function Barra({setMenu}: {setMenu:React.Dispatch<React.SetStateA
                 <h1 className="font-bold text-4xl block md:mr-8"><span className="font-medium text-xl text-gray_1 block text-nowrap">Hi, {user.nombre} </span>{titles[location] || ''}</h1>
             </div>
 
-            <form className='flex items-center bg-gray_4 rounded-md h-fit flex-grow mt-4 md:mt-0'>
+            <form className='flex items-center bg-gray_4 rounded-md h-fit flex-grow mt-4 md:mt-0' onSubmit={handleSearch}>
                 <div className="w-full relative after:content-[''] after:block after:absolute after:top-2 after:right-0 after:h-3/4 after:bg-gray_3 after:w-px">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none"><Icon path={mdiMagnify} size='20px' className='text-gray_2'/></div>
                     <input 
@@ -41,6 +76,8 @@ export default function Barra({setMenu}: {setMenu:React.Dispatch<React.SetStateA
                         id="search" 
                         placeholder="Find doctors"
                         className="w-full p-3 ps-10 text-sm text-gray_2 border border-gray_4 rounded-lg bg-gray_4"
+                        value={searchDoctor}
+                        onChange={(e) => setSearchDoctor(e.target.value)}
                     />
                 </div>
                 <div className="relative">
