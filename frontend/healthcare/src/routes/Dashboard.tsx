@@ -9,13 +9,13 @@ import Icon from '@mdi/react';
 import { mdiMapMarker, mdiChevronRight, mdiCalendarMonthOutline  } from '@mdi/js';
 import { useEffect, useState } from "react";
 import { API_URL } from "../data/Constants";
-import { Doctor } from "../types/Usuarios";
+import { Cita, Doctor } from "../types/Usuarios";
 
 export default function Dashboard() {
 
   const [doctores, setDoctores] = useState<Doctor[]>([])
   const [ubicacion, setUbicacion] = useState(false)
-
+  const [citas, setCitas] = useState<Cita[]>([])
   const handleLocationRequest = () => {
     navigator.geolocation.getCurrentPosition(
       () => {
@@ -40,6 +40,19 @@ export default function Dashboard() {
     fetchDoctores()
   }, []);
 
+  useEffect(() => {
+    const fetchCitasByUsers = async () => {
+      try {
+        const response = await fetch (`${API_URL}/citas/citas/usuario/HD0jFK4BZlyjVI7dvsIS`)
+        const data = await response.json();
+        console.log('Datos recibidos:', data);
+        setCitas(data.data)
+      }catch(error){
+        console.log('Error al obtener las citas por usuario', error)
+      }
+    };
+    fetchCitasByUsers()
+  }, []);
   
 
   return (

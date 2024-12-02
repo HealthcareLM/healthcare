@@ -1,242 +1,139 @@
+import React, { useState } from "react";
 
 export default function Calendar() {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState<number | null>(null);
+
+  const handleMonthChange = (direction: number) => {
+    setCurrentDate((prevDate) => {
+      const newDate = new Date(prevDate);
+      newDate.setMonth(prevDate.getMonth() + direction);
+      return newDate;
+    });
+    setSelectedDay(null);
+  };
+
+  const generateDays = () => {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const firstDayOfMonth = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const prevMonthDays = new Date(year, month, 0).getDate();
+    const startPaddingDays = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
+
+    const days = [];
+    for (let i = startPaddingDays; i > 0; i--) {
+      days.push({ day: prevMonthDays - i + 1, isCurrentMonth: false });
+    }
+
+    for (let i = 1; i <= daysInMonth; i++) {
+      days.push({ day: i, isCurrentMonth: true });
+    }
+
+    const endPaddingDays = (7 - (days.length % 7)) % 7;
+    for (let i = 1; i <= endPaddingDays; i++) {
+      days.push({ day: i, isCurrentMonth: false });
+    }
+
+    return days;
+  };
+
+  const renderDay = (day: number, isCurrentMonth: boolean) => (
+    <div
+      onClick={() => isCurrentMonth && setSelectedDay(selectedDay === day ? null : day)}
+      className={`w-10 h-10 flex items-center justify-center cursor-pointer rounded-full 
+        ${
+          selectedDay === day && isCurrentMonth
+            ? "bg-cyan-600 text-white"
+            : isCurrentMonth
+            ? "hover:bg-cyan-600 hover:text-white text-black"
+            : "text-gray-400"
+        }`}
+    >
+      <p className="text-xs font-medium">{day}</p>
+    </div>
+  );
+
+  const days = generateDays();
+
   return (
     <div className="w-full h-full bg-light_gray rounded-lg px-4 py-3">
-        <div className="px-4 flex items-center justify-between">
-            <span className="text-lg font-mediu text-black">November 2020</span>
-            <div className="flex items-center">
-                <button aria-label="calendar backward" className="focus:text-gray-400 hover:text-gray-400 text-gray-800 ">
-                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <polyline points="15 6 9 12 15 18" />
-                </svg>
-            </button>
-            <button aria-label="calendar forward" className="focus:text-gray-400 hover:text-gray-400 ml-3 text-gray-800 "> 
-                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler  icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <polyline points="9 6 15 12 9 18" />
-                </svg>
-            </button>
-
-            </div>
+      <div className="px-4 flex items-center justify-between">
+        <span className="text-lg font-medium text-black">
+          {currentDate.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+        </span>
+        <div className="flex items-center">
+          <button
+            aria-label="calendar backward"
+            onClick={() => handleMonthChange(-1)}
+            className="focus:text-gray-400 hover:text-gray-400 text-gray-800"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="icon icon-tabler icon-tabler-chevron-left"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <polyline points="15 6 9 12 15 18" />
+            </svg>
+          </button>
+          <button
+            aria-label="calendar forward"
+            onClick={() => handleMonthChange(1)}
+            className="focus:text-gray-400 hover:text-gray-400 ml-3 text-gray-800"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="icon icon-tabler icon-tabler-chevron-right"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <polyline points="9 6 15 12 9 18" />
+            </svg>
+          </button>
         </div>
-        
-        <div className="flex items-center justify-between pt-3 overflow-x-auto">
-            <table className="w-full">
-                <thead>
-                    <tr>
-                        <th>
-                            <div className="w-full flex justify-center">
-                                <p className="text-xs font-medium text-center text-[#878787] ">Mon</p>
-                            </div>
-                        </th>
-                        <th>
-                            <div className="w-full flex justify-center">
-                                <p className="text-xs font-medium text-center text-[#878787] ">Tue</p>
-                            </div>
-                        </th>
-                        <th>
-                            <div className="w-full flex justify-center">
-                                <p className="text-xs font-medium text-center text-[#878787] ">Wed</p>
-                            </div>
-                        </th>
-                        <th>
-                            <div className="w-full flex justify-center">
-                                <p className="text-xs font-medium text-center text-[#878787] ">Thu</p>
-                            </div>
-                        </th>
-                        <th>
-                            <div className="w-full flex justify-center">
-                                <p className="text-xs font-medium text-center text-[#878787] ">Fri</p>
-                            </div>
-                        </th>
-                        <th>
-                            <div className="w-full flex justify-center">
-                                <p className="text-xs font-medium text-center text-[#878787] ">Sat</p>
-                            </div>
-                        </th>
-                        <th>
-                            <div className="w-full flex justify-center">
-                                <p className="text-xs font-medium text-center text-[#878787] ">Sun</p>
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td className="pt-6">
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center"></div>
-                        </td>
-                        <td className="pt-6">
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center"></div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center"></div>
-                        </td>
-                        <td className="pt-6">
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">1</p>
-                            </div>
-                        </td>
-                        <td className="pt-6">
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">2</p>
-                            </div>
-                        </td>
-                        <td className="pt-6">
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">3</p>
-                            </div>
-                        </td>
-                        <td className="pt-6">
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">4</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">5</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">6</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">7</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="w-full h-full">
-                                <div className="flex items-center justify-center w-full rounded-full cursor-pointer">
-                                    <p className="hover:bg-cyan-600 text-xs w-8 h-8 flex items-center justify-center font-medium text-white bg-primary rounded-full">8</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">9</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">10</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">11</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">12</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">13</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">14</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">15</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">16</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">17</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">18</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">19</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">20</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">21</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">22</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">23</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">24</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">25</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">26</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">27</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">28</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">29</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                <p className="text-xs text-black font-medium">30</p>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      </div>
+      <div className="flex items-center justify-between pt-3 overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr>
+              {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+                <th key={day}>
+                  <div className="w-full flex justify-center">
+                    <p className="text-xs font-medium text-center text-[#878787]">{day}</p>
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {Array.from({ length: days.length / 7 }).map((_, weekIdx) => (
+              <tr key={weekIdx}>
+                {days.slice(weekIdx * 7, weekIdx * 7 + 7).map(({ day, isCurrentMonth }, idx) => (
+                  <td key={idx}>
+                    {renderDay(day, isCurrentMonth)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
-  )
+  );
 }
