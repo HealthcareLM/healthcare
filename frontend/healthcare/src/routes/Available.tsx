@@ -2,6 +2,10 @@ import Header from "../layouts/Header";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
+import { useAuth } from "../hooks/useAuth";
+import { useEffect, useState } from "react";
+import { Cita, Doctor } from "../types/Usuarios";
+import { API_URL } from "../data/Constants";
 
 
 
@@ -15,23 +19,54 @@ export default function Available() {
     }
   }
 
-  const events = [
-    {
-      start: moment('2024-11-18T12:00:00').toDate(),
-      end: moment('2024-11-18T13:00:00').toDate(),
-      title: "Cita 1"
-    },
-    {
-      start: moment('2024-11-18T14:00:00').toDate(),
-      end: moment('2024-11-18T15:00:00').toDate(),
-      title: "Cita 2"
-    },
-    {
-      start: moment('2024-11-19T09:00:00').toDate(),
-      end: moment('2024-11-19T10:00:00').toDate(),
-      title: "Cita 3"
+  const { user } = useAuth()
+  const [ citaCalendar, setCitaCalendar ] = useState<Cita[]>([])
+  const [ doctor, setDoctor ] = useState<Doctor[]>([])
+
+  useEffect(() => {
+    const CalendarData = async() => {
+      if (user.id) {
+        try {
+          const response = await fetch(`${API_URL}/citas/citas/usuario/${user.id}`)
+          const responseDoc = await fetch(`${API_URL}/usuario/${user.id}`)
+
+          const dataJSON = await response.json()
+          const docJSON = await responseDoc.json()
+  
+          setCitaCalendar(dataJSON.citas)
+          setDoctor(docJSON.nombre)
+  
+        } catch (error) {
+          throw new Error("Error al recuperar citas por usuario")
+        }
+      }
+      
     }
-  ]
+    CalendarData()
+  }, [user.id]) // Aseguranos de pasar siempre el user.id
+
+  const events = citaCalendar.map( cita => ({
+      start: moment(`${cita.fecha}T${cita.hora}`).toDate(),
+      end: moment(`${cita.fecha}T${cita.hora}`).add(30,'minutes').toDate(),
+      title: `Cita con: ${cita.doctorId}`
+    }))
+  //  [z
+  //   {
+  //     start: moment('2024-11-18T12:00:00').toDate(),
+  //     end: moment('2 24-11-18T13:00:00').toDate(),
+  //     title: "Cita 1"
+  //   }//,
+    // {
+    //   start: moment('2024-11-18T14:00:00').toDate(),
+    //   end: moment('2024-11-18T15:00:00').toDate(),
+    //   title: "Cita 2"
+    // },
+    // {
+    //   start: moment('2024-11-19T09:00:00').toDate(),
+    //   end: moment('2024-11-19T10:00:00').toDate(),
+    //   title: "Cita 3"
+    // }
+  // ]
 
   return (
     <>
