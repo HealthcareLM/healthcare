@@ -6,15 +6,20 @@ import { useEffect, useState } from "react";
 import { Doctor } from "../types/Usuarios";
 import { API_URL } from "../data/Constants";
 import ScheduleDoctor from "../components/ScheduleDoctor";
-
-export default function PatientStep1({setStep} : {setStep: Dispatch<React.SetStateAction<number>>}){
-  const [doctor, setDoctor] = useState<Doctor>({} as Doctor )
+export default function PatientStep1({
+  setStep,
+  id,
+}: {
+  setStep: Dispatch<React.SetStateAction<number>>;
+  id: string | undefined
+}) {
+  const [doctor, setDoctor] = useState<Doctor>({} as Doctor);
 
   useEffect(() => {
     // Definir la función asíncrona
-    const fetchDoctores = async () => {
+    const fetchDoctor = async () => {
       try {
-        const response = await fetch(`${API_URL}/usuarios/usuario/tCohaMKT7u1TCvtTgikt`);
+        const response = await fetch(`${API_URL}/usuarios/usuario/${id}`);
         const data = await response.json();
         setDoctor(data.usuario); // Actualizar el estado con los datos
       } catch (error) {
@@ -23,7 +28,7 @@ export default function PatientStep1({setStep} : {setStep: Dispatch<React.SetSta
     };
 
     // Llamar a la función asíncrona
-    fetchDoctores();
+    fetchDoctor();
   }, []); // El arreglo vacío asegura que solo se ejecute al montar el componente
 
   return (
