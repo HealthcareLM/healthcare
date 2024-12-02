@@ -4,7 +4,7 @@ import Icon from "@mdi/react";
 import { Link } from "react-router-dom";
 import CardConsultationHistory from "../components/CardConsultationHistory";
 import { useContext, useEffect, useState } from "react";
-import { Cita, Paciente, Usuario } from "../types/Usuarios";
+import { Cita} from "../types/Usuarios";
 import { API_URL } from "../data/Constants";
 import {AuthContext} from "../contexts/AuthContext";
 
@@ -12,7 +12,6 @@ export default function ProfileHistory() {
 
    //const [date, setDate] = useState<Date | null>(new Date());
    const [history,setHistory] = useState<Cita[]>([])
-   const [pacientes, setPacientes] = useState<Record<string, Paciente>>({}); // Almacenar datos de pacientes por ID
    const [todayCita, setTodayCita] = useState<Cita[]>([]); // Nuevo estado para citas del día
    const [yesterdayCita, setYesterdayCita] = useState<Cita[]>([]); // Nuevo estado para citas del día
    const [nextCita, setNextCita] = useState<Cita[]>([]); // Nuevo estado para citas del día
@@ -32,6 +31,11 @@ export default function ProfileHistory() {
       return fecha === RJ45;    
    }; 
 
+   const today = new Date();
+   const nxt = new Date(today);
+   nxt.setDate(today.getDate()+1)
+   const RJ45 = nxt.toISOString().split('T')[0]; 
+
    const Next = (fecha: string) => {
       const today = new Date();
       const nxt = new Date(today);
@@ -44,16 +48,7 @@ export default function ProfileHistory() {
          try{
             const response = await fetch(`${API_URL}/citas/citas/usuario/${user.id}`)
             const data = await response.json()
-            
             setHistory(data.citas)
-            const patientIds = [...new Set<string>(data.citas.map((cita: Cita) => cita.patientId))];
-            await Promise.all(
-               patientIds.map(async (id) => {
-                  const res = await fetch(`${API_URL}/usuarios/usuario/${id}`);
-                  const pacienteData = await res.json();
-                  setPacientes(pacienteData.usuario)
-               })
-            ) 
          }catch(error){
             console.error('Error fetching history:', error);
          }
@@ -62,7 +57,7 @@ export default function ProfileHistory() {
    },[])
 
    useEffect(() => {
-      if (history.length > 0) {
+      if (history.length > 0) { 
          setTodayCita(history.filter((cita) => Today(cita.fecha)));
          setYesterdayCita(history.filter((cita) => yesterday(cita.fecha))); 
          setNextCita(history.filter((cita) => Next(cita.fecha)));
@@ -83,23 +78,35 @@ export default function ProfileHistory() {
                <div className="m-4 space-y-2">
                   <h1 className="text-xl font-bold">Yesterday</h1>
                   <div className="flex flex-col md:flex-row md:space-x-3 space-y-3 md:space-y-0">     
-                  {yesterdayCita.map((cita) => (
-                  <CardConsultationHistory key={cita.id} cita={cita}/>
-                   ))}
+                  {yesterdayCita.length > 0 ? (
+                     yesterdayCita.map((cita) => (
+                        <CardConsultationHistory key={cita.id} cita={cita} />
+                     ))
+                  ) : (
+                     <p className="text-center justify-center text-gray-500">There are no appointments for this day.</p>
+                  )}
                   </div>
                </div>
                <div className=" m-4 space-y-3 ">
                   <h1 className="text-xl font-bold ">Today</h1>
-                  {todayCita.map((cita) => (
-                  <CardConsultationHistory key={cita.id} cita={cita} />
-                   ))}
+                  {  todayCita.length>0 ? (
+                        todayCita.map((cita) => (
+                           <CardConsultationHistory key={cita.id} cita={cita} />
+                        ))
+                  ) : (
+                     <p className="text-center justify-center text-gray-500">There are no appointments for this day.</p>
+                  )}
                </div>
                <div className="m-4 pb-4">
-                  <h1 className="text-xl font-bold pb-2">asd</h1>
+                  <h1 className="text-xl font-bold pb-2">{RJ45}</h1>
                   <div className="flex flex-col md:flex-row md:space-x-3 space-y-3 md:space-y-0">
-                  {nextCita.map((cita) => (
-                  <CardConsultationHistory key={cita.id} cita={cita}/>
-                   ))}
+                  {  nextCita.length>0 ? (
+                        nextCita.map((cita) => (
+                           <CardConsultationHistory key={cita.id} cita={cita} />
+                        ))
+                  ) : (
+                     <p className="text-center justify-center text-gray-500">There are no appointments for this day.</p>
+                  )}
                   </div>
                </div>
             </div>

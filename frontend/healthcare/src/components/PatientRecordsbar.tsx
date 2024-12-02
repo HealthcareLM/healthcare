@@ -7,13 +7,13 @@ export default function(){
             <nav className="flex ">
                <ul className='flex flex-row w-full justify-between gap-3 p-2 bg-gray-100 rounded-md '>
                   <li className="w-24">
-                     <Link className='flex  items-center py-2 px-3  text-gray-600 rounded-md hover:bg-white hover:text-black' to="/">Yesterday</Link>
+                     <Link className='flex  items-center py-2 px-3  text-gray-600 rounded-md hover:bg-white hover:text-black' to="/patientrecords">Yesterday</Link>
                   </li>
                   <li className="w-24">
-                     <Link className='flex justify-center items-center py-2 px-3  text-gray-600 rounded-md hover:bg-white hover:text-black' to="/">Today</Link>
+                     <Link className='flex justify-center items-center py-2 px-3  text-gray-600 rounded-md hover:bg-white hover:text-black' to="/patientrecords">Today</Link>
                   </li>
                   <li className="w-24">
-                     <Link className='flex justify-center items-center py-2 px-3 text-gray-600 rounded-md hover:bg-white hover:text-black' to="/">Past</Link>
+                     <Link className='flex justify-center items-center py-2 px-3 text-gray-600 rounded-md hover:bg-white hover:text-black' to="/patientrecords">Past</Link>
                   </li>
                </ul>
             </nav>
