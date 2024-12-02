@@ -116,7 +116,7 @@ export default function MenuConsults(){
                
                <div className="flex justify-between lg:justify-end sm:px-4 w-full  space-x-4">
                   <input type="month" className=" rounded-lg bg-gray-100 px-3 border border-black" onChange={(e) => handleMonthChange(e.target.value)}/>
-                  <Link className='flex text-white w-48 items-center justify-items-center p-3 rounded-md bg-primary' to="/schedule">
+                  <Link className='flex text-white w-48 items-center justify-items-center p-3 rounded-md bg-primary' to={`/schedule/${user.id}`}>
                   <Icon path={mdiPlus} size={'18px'} className='mr-2 border rounded-sm'/>New Appointment</Link>
                </div>
             </div>
