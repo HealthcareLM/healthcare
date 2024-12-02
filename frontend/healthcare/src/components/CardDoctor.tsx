@@ -1,6 +1,7 @@
 import Icon from '@mdi/react';
 import { mdiClockOutline } from '@mdi/js';
 import { Doctor } from '../types/Usuarios';
+import { Link } from 'react-router-dom';
 
 type CardDoctorProps = {
     doctor: Doctor
@@ -11,7 +12,7 @@ export default function CardDoctor({doctor} : CardDoctorProps) {
     <div className="border border-slateBorder rounded-xl p-5 w-full relative">
         <div className="flex after:content-[''] after:block after:absolute after:h-px after:bg-gray_3 after:w-11/12 after:bottom-16 after:left-1/2 after:transform after:-translate-x-1/2">
             <div className="w-16 h-16 rounded-full overflow-hidden">
-                <img className="w-full h-full object-cover" src={`./doctors/${doctor.imagen}`} alt="foto doctor" />
+                <img className="w-full h-full object-cover" src={`/users/${doctor.imagen}`} alt="foto doctor" />
             </div>
             <div className="ml-4">
                 <p className="block text-lg font-medium">{doctor.nombre}</p>
@@ -43,7 +44,7 @@ export default function CardDoctor({doctor} : CardDoctorProps) {
 
         </div>
 
-        <div className="w-full text-white bg-primary hover:bg-cyan-700 text-sm font-medium text-center rounded-md py-3 mt-4 cursor-pointer">Book an appointment</div>
+        <Link className="w-full text-white bg-primary hover:bg-cyan-700 text-sm font-medium text-center rounded-md py-3 mt-4 cursor-pointer block" to={'/schedule'}>Book an appointment</Link>
     </div>
   )
 }

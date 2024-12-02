@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { Usuarios } from "../models/Usuarios";
 import { UsuariosController } from "../controllers/UsuariosController";
+import { upload } from "../config/multer";
 
 const router = Router()
 
@@ -16,5 +17,8 @@ router.delete('/usuarioDelete/:id', UsuariosController.deleteUserId)        // E
 
 router.post('/signin', UsuariosController.register)             // REGISTRAR USUARIO (PACIENTE)
 router.post('/login', UsuariosController.login)
+
+router.post('/upload', upload.single("file"), UsuariosController.upload)
+
 
 export default router

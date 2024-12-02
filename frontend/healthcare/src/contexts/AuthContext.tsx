@@ -20,7 +20,18 @@ type AuthContextProps = {
     user: user ,
     saveUser: (userData: user) => void,
     setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+    getUser: () => user
+    logout: () => void
 }
+
+const initialUser : user = {
+  id: '',
+  nombre: '',
+  email: '',
+  imagen: '',
+  rol: ''
+}
+
 
 // Creacion de contexto para componentes globales para acceder al estado de autenticacion
 export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps)
@@ -30,24 +41,36 @@ export default function AuthProvider({children} : AuthProvider) {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-    const [user, setUser] = useState<user>({
-      id: '',
-      nombre: '',
-      email: '',
-      imagen: '',
-      rol: ''
-    })
+    const [user, setUser] = useState<user>(initialUser)
 
     function saveUser(userData: user) {
-      setIsAuthenticated(true)
-      setUser(userData) 
+      setUser(userData)
+      
+      if(!(userData.id === '')) {
+        setIsAuthenticated(true)
+        localStorage.setItem('user', JSON.stringify(userData))
+      }
     }
+
+    function getUser() {
+      const user = localStorage.getItem('user')
+      return user ? JSON.parse(user) as user : initialUser
+    }
+
+    function logout() {
+      setUser(initialUser)
+      setIsAuthenticated(false)
+      localStorage.removeItem('user')
+    }
+
     return (
         <AuthContext.Provider value={{
             isAuthenticated,
             user,
             saveUser,
-            setIsAuthenticated
+            setIsAuthenticated,
+            getUser,
+            logout
         }}>
             {children}
         </AuthContext.Provider>

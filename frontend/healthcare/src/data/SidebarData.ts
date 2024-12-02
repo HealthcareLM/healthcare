@@ -9,7 +9,6 @@ export const SidebarLinks : LinksSidebar = {
         {icono: mdiCalendarBlankOutline, title: 'Calendar', ruta: '/available'},
         {icono: mdiAccountCircleOutline, title: 'Profile', ruta: '/profile'},
         {icono: mdiHelpCircleOutline, title: 'Help', ruta: '/help'},
-        {icono: mdiLogout, title: 'Logout', ruta: '/logout'}
     ]
   },
   doctores: {
@@ -20,7 +19,6 @@ export const SidebarLinks : LinksSidebar = {
       {icono: mdiAccountCircleOutline, title: 'My Consults', ruta: '/MenuConsults'},
       {icono: mdiVideoOutline , title: 'Online Consult', ruta: '/'},
       {icono: mdiHelpCircleOutline, title: 'Help', ruta: '/'},
-      {icono: mdiLogout, title: 'Logout', ruta: '/logout'}
     ]
   },
   profile: {

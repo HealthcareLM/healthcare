@@ -228,20 +228,41 @@ export class UsuariosController {
 
   public static async updateUser(req: Request, res: Response) {
     const { id } = req.params
-    const user = req.body
+    const user : IUsuario = req.body
 
     try {
       const userUpdate = await Usuarios.updateUserId(id, user)
       res.status(201).json( { 
         message: "Actualizado  con Éxito ",
         user: {
-          user: userUpdate
+          id: id,
+          nombre: user.nombre,
+          email: user.email,
+          rol: user.rol,
+          imagen: user.imagen
         }
-       })
+      })
 
     } catch (error) {
       res.status(500).json({ error: 'Error del servidor Controller actualizar ID' })
     }
 
+  }
+
+  public static async upload(req: Request, res: Response) {
+    console.log(req.file);
+    console.log(req.body);
+    
+
+    if (!req.file) {
+      res.status(400).send("No se ha subido ningún archivo.");
+      return
+    }
+  
+    res.status(200).send({
+      message: "Archivo subido exitosamente",
+      filePath: `/public/users/${req.file.filename}`, // Ruta accesible desde el frontend
+      namefile: req.file.filename
+    });
   }
 }

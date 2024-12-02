@@ -45,14 +45,19 @@ export default function Profile( ) {
 
    return (
     <>
+      {user.nombre === '' ? (
+         <div className="w-full bg-red-600 rounded-md text-white text-center py-2">Antes de continuar, es necesario que termines de configurar tu cuenta.</div>
+      ) :
+         ''
+      }
       <div className="flex flex-col md:flex-row pb-7 border rounded-lg w-full">
          <Profilebar/>
          <div className=" p-3 w-full space-y-4">
             <h1 className="w-full text-2xl font-bold">My profile</h1>
             <div className="w-full rounded-lg border flex flex-row sm:items-center justify-between gap-4">
                <div className="flex items-center">
-                  <div className="m-5">
-                     <img src="/users/profile.png" alt="" className="w-full block" />
+                  <div className="m-5 w-[100px] h-[100px] rounded-full overflow-hidden">
+                     <img src={`/users/${user.imagen}`} alt="" className="object-cover w-full h-full" />
                   </div>
                   <div>
                      <p className="text-lg font-semibold">{perfil?.nombre}</p>
@@ -132,12 +137,7 @@ export default function Profile( ) {
             </div>
          </div>
       </div>
-
-
     </>
   )
-}
-function useUser() {
-   throw new Error("Function not implemented.")
 }
 
